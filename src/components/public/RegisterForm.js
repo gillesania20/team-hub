@@ -8,6 +8,10 @@ const RegisterForm = () => {
                     <input type="text" />
                 </div>
                 <div>
+                    <label>Birthday:</label>
+                    <input type="date" />
+                </div>
+                <div>
                     <label>Password: </label>
                     <input type="password" />
                 </div>
