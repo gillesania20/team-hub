@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import GetCookie from './components/layout/GetCookie';
+import SetCookie from './components/layout/SetCookie';
 import AppLayout from './components/layout/AppLayout';
 import Login from './components/public/Login';
 import Register from './components/public/Register';
@@ -9,34 +11,44 @@ function App() {
   const router = createBrowserRouter(
     [
       {
-        element: <AppLayout />,
+        element: <GetCookie />,
         children: [
           {
-            path: '/',
-            element: <Login />
-          },
-          {
-            path: '/login',
-            element: <Login />
-          },
-          {
-            path: '/register',
-            element: <Register />
-          },
-          {
-            path: '/dash',
-            element: <Layout />,
+            element: <SetCookie />,
             children: [
               {
-                path: 'users',
+                element: <AppLayout />,
                 children: [
                   {
-                    path: 'display-user/:userID',
-                    element: <DisplaySingleUser />
+                    path: '/',
+                    element: <Login />
                   },
                   {
-                    path: 'edit-user/:userID',
-                    element: <EditUser />
+                    path: '/login',
+                    element: <Login />
+                  },
+                  {
+                    path: '/register',
+                    element: <Register />
+                  },
+                  {
+                    path: '/dash',
+                    element: <Layout />,
+                    children: [
+                      {
+                        path: 'users',
+                        children: [
+                          {
+                            path: 'display-user/:userID',
+                            element: <DisplaySingleUser />
+                          },
+                          {
+                            path: 'edit-user/:userID',
+                            element: <EditUser />
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
