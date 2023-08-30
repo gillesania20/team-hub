@@ -8,13 +8,13 @@ const HeaderSection = () => {
             <div>
                 <ul>
                     <li>
-                        <a href="">Search Team</a>
+                        <a href="http://localhost:3000/">Search Team</a>
                     </li>
                     <li>
-                        <a href="">Show Teams</a>
+                        <a href="http://localhost:3000/">Show Teams</a>
                     </li>
                     <li>
-                        <a href="">Create Team</a>
+                        <a href="http://localhost:3000/">Create Team</a>
                     </li>
                 </ul>
             </div>
