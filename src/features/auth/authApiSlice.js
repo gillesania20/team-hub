@@ -28,7 +28,7 @@ const authApi = api.injectEndpoints({
                         dispatch(setToken(data.accessToken));
                     }
                     if(typeof data?.userID === 'string'){
-                        dispatch(setUserID(data.useID));
+                        dispatch(setUserID(data.userID));
                     }
                 }catch(err){
                     //error
