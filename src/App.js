@@ -4,6 +4,7 @@ import SetCookie from './components/layout/SetCookie';
 import AppLayout from './components/layout/AppLayout';
 import Login from './components/public/Login';
 import Register from './components/public/Register';
+import VerifyUser from './components/auth/VerifyUser';
 import Layout from './components/layout/Layout';
 import DisplaySingleUser from './components/users/DisplaySingleUser';
 import EditUser from './components/users/EditUser';
@@ -32,19 +33,24 @@ function App() {
                     element: <Register />
                   },
                   {
-                    path: '/dash',
-                    element: <Layout />,
+                    element: <VerifyUser />,
                     children: [
                       {
-                        path: 'users',
+                        path: '/dash',
+                        element: <Layout />,
                         children: [
                           {
-                            path: 'display-user/:userID',
-                            element: <DisplaySingleUser />
-                          },
-                          {
-                            path: 'edit-user/:userID',
-                            element: <EditUser />
+                            path: 'users',
+                            children: [
+                              {
+                                path: 'display-user/:userID',
+                                element: <DisplaySingleUser />
+                              },
+                              {
+                                path: 'edit-user/:userID',
+                                element: <EditUser />
+                              }
+                            ]
                           }
                         ]
                       }
