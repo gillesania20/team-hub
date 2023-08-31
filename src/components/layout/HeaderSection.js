@@ -1,8 +1,18 @@
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import decodeToken from './../../functions/decodeToken';
+import { selectToken, selectUserID } from './../../features/auth/authSlice';
 const HeaderSection = () => {
+    const token = useSelector(selectToken);
+    const userID = useSelector(selectUserID);
+    const decoded = decodeToken(token);
     return(
         <header>
             <div>
-                <span>Welcome user1</span>
+                <span>
+                    Welcome <Link to={`/dash/users/display-user/${userID}`}>{decoded.username}
+                    </Link>
+                </span>
                 <button type="button">Logout</button>
             </div>
             <div>
