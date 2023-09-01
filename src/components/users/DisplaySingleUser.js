@@ -1,9 +1,12 @@
+import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { useGetUserQuery } from './../../features/users/userApiSlice';
+import { selectUserID } from './../../features/auth/authSlice';
 import Loader from './../loader/Loader';
 import ErrorWithMessage from './../errors/ErrorWithMessage';
 import DefaultError from './../errors/DefaultError';
 const DisplaySingleUser = () => {
+    const clientID = useSelector(selectUserID);
     const { userID } = useParams();
     const { data, isLoading, error } = useGetUserQuery({userID})
     let date = null;
@@ -32,7 +35,7 @@ const DisplaySingleUser = () => {
                 <label>Birthday: </label>
                 <span>{birthday}</span>
             </div>
-            <div>
+            <div hidden={(clientID !== userID)}>
                 <Link to={`/dash/users/edit-user/${userID}`}>Edit User</Link>
             </div>
         </div>;

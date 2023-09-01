@@ -8,8 +8,7 @@ const RegisterForm = () => {
     const [password, setPassword] = useState('');
     const [retypePassword, setRetypePassword] = useState('');
     const [register, {isLoading}] = useAddUserMutation();
-    const date = new Date();
-    const maxDate = date.toISOString().split("T")[0];
+    const maxDate = new Date().toISOString().split("T")[0];
     let response = null;
     const handleOnChange = (e) => {
         if(e.target.name === 'uname'){

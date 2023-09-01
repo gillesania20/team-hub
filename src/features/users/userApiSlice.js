@@ -21,10 +21,22 @@ const userApi = api.injectEndpoints({
                     birthday
                 }
             })
+        }),
+        updateUser: build.mutation({
+            query: ({userID, username, password, birthday}) => ({
+                url: `${userApiRoute}/${userID}`,
+                method: 'PATCH',
+                body: {
+                    username,
+                    password,
+                    birthday
+                }
+            })
         })
     })
 });
 export const {
     useGetUserQuery,
-    useAddUserMutation
+    useAddUserMutation,
+    useUpdateUserMutation
 } = userApi;
