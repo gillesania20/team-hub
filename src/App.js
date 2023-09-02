@@ -8,6 +8,7 @@ import VerifyUser from './components/auth/VerifyUser';
 import Layout from './components/layout/Layout';
 import DisplaySingleUser from './components/users/DisplaySingleUser';
 import EditUser from './components/users/EditUser';
+import CreateTeam from './components/teams/CreateTeam';
 function App() {
   const router = createBrowserRouter(
     [
@@ -49,6 +50,15 @@ function App() {
                               {
                                 path: 'edit-user/:userID',
                                 element: <EditUser />
+                              }
+                            ]
+                          },
+                          {
+                            path: 'teams',
+                            children: [
+                              {
+                                path: 'create-team',
+                                element: <CreateTeam />
                               }
                             ]
                           }

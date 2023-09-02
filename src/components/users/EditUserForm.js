@@ -79,7 +79,7 @@ const EditUserForm = ({userData}) => {
                 </div>
             </div>
             <div>
-                <button type='submit' disabled={(isLoading === true)}>Submit</button>
+                <button type='submit' disabled={(isLoading === true)}>Update</button>
                 <button type='button' disabled={(isLoading === true)}>Cancel</button>
             </div>
         </form>

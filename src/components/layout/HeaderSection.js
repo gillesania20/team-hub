@@ -13,18 +13,18 @@ const HeaderSection = () => {
                     Welcome <Link to={`/dash/users/display-user/${userID}`}>{decoded.username}
                     </Link>
                 </span>
-                <button type="button">Logout</button>
+                <button type='button'>Logout</button>
             </div>
             <div>
                 <ul>
                     <li>
-                        <a href="http://localhost:3000/">Search Team</a>
+                        <Link to='/'>Search Team</Link>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/">Show Teams</a>
+                        <Link to='/'>Show Teams</Link>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/">Create Team</a>
+                        <Link to='/dash/teams/create-team'>CreateTeam</Link>
                     </li>
                 </ul>
             </div>
