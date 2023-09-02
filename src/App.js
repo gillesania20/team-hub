@@ -9,6 +9,7 @@ import Layout from './components/layout/Layout';
 import DisplaySingleUser from './components/users/DisplaySingleUser';
 import EditUser from './components/users/EditUser';
 import CreateTeam from './components/teams/CreateTeam';
+import EditTeam from './components/teams/EditTeam';
 function App() {
   const router = createBrowserRouter(
     [
@@ -59,6 +60,10 @@ function App() {
                               {
                                 path: 'create-team',
                                 element: <CreateTeam />
+                              },
+                              {
+                                path: 'edit-team/:teamID',
+                                element: <EditTeam />
                               }
                             ]
                           }
