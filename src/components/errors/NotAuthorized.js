@@ -1,7 +1,13 @@
+import { Link } from 'react-router-dom';
 const NotAuthorized = () => {
     return (
         <div>
-            Not Authorized.
+            <div>
+                Not Authorized.
+            </div>
+            <div>
+                <Link to='/login'>Login</Link>
+            </div>
         </div>
     );
 }
