@@ -8,6 +8,7 @@ import VerifyUser from './components/auth/VerifyUser';
 import Layout from './components/layout/Layout';
 import DisplaySingleUser from './components/users/DisplaySingleUser';
 import EditUser from './components/users/EditUser';
+import DisplaySingleTeam from './components/teams/DisplaySingleTeam';
 import CreateTeam from './components/teams/CreateTeam';
 import EditTeam from './components/teams/EditTeam';
 function App() {
@@ -57,6 +58,10 @@ function App() {
                           {
                             path: 'teams',
                             children: [
+                              {
+                                path: 'display-team/:teamID',
+                                element: <DisplaySingleTeam />
+                              },
                               {
                                 path: 'create-team',
                                 element: <CreateTeam />

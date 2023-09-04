@@ -28,11 +28,18 @@ const teamApi = api.injectEndpoints({
                     name
                 }
             })
+        }),
+        deleteTeam: build.mutation({
+            query: ({teamID}) => ({
+                url: `${teamApiRoute}/${teamID}`,
+                method: 'DELETE'
+            })
         })
     })
 });
 export const {
     useGetTeamQuery,
     useAddTeamMutation,
-    useUpdateTeamMutation
+    useUpdateTeamMutation,
+    useDeleteTeamMutation
 } = teamApi;
