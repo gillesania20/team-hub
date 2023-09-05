@@ -18,7 +18,7 @@ const HeaderSection = () => {
             <div>
                 <ul>
                     <li>
-                        <Link to='/'>Search Team</Link>
+                        <Link to='/dash/teams/search-team'>Search Team</Link>
                     </li>
                     <li>
                         <Link to='/'>Show Teams</Link>

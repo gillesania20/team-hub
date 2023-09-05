@@ -11,6 +11,12 @@ const teamApi = api.injectEndpoints({
                 return response.team;
             }
         }),
+        searchTeam: build.mutation({
+            query: ({teamName}) => ({
+                url: `${teamApiRoute}/search-team/${teamName}`,
+                method: 'GET'
+            })
+        }),
         addTeam: build.mutation({
             query: ({name}) => ({
                 url: `${teamApiRoute}`,
@@ -39,6 +45,7 @@ const teamApi = api.injectEndpoints({
 });
 export const {
     useGetTeamQuery,
+    useSearchTeamMutation,
     useAddTeamMutation,
     useUpdateTeamMutation,
     useDeleteTeamMutation

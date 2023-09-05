@@ -11,6 +11,7 @@ import EditUser from './components/users/EditUser';
 import DisplaySingleTeam from './components/teams/DisplaySingleTeam';
 import CreateTeam from './components/teams/CreateTeam';
 import EditTeam from './components/teams/EditTeam';
+import SearchTeam from './components/teams/SearchTeam';
 function App() {
   const router = createBrowserRouter(
     [
@@ -69,6 +70,10 @@ function App() {
                               {
                                 path: 'edit-team/:teamID',
                                 element: <EditTeam />
+                              },
+                              {
+                                path: 'search-team',
+                                element: <SearchTeam />
                               }
                             ]
                           }
