@@ -2,6 +2,12 @@ import { api } from './../api/apiSlice';
 const membershipApiRoute = 'memberships';
 const membershipApi = api.injectEndpoints({
     endpoints: (build) => ({
+        getAllMemberships: build.query({
+            query: () => ({
+                url: `${membershipApiRoute}`,
+                method: 'GET'
+            })
+        }),
         getMembership: build.query({
             query: ({teamID}) => ({
                 url: `${membershipApiRoute}/get-single/${teamID}`,
@@ -26,6 +32,7 @@ const membershipApi = api.injectEndpoints({
     })
 });
 export const {
+    useGetAllMembershipsQuery,
     useGetMembershipQuery,
     useAddMembershipMutation,
     useDeleteMembershipMutation

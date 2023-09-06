@@ -12,6 +12,7 @@ import DisplaySingleTeam from './components/teams/DisplaySingleTeam';
 import CreateTeam from './components/teams/CreateTeam';
 import EditTeam from './components/teams/EditTeam';
 import SearchTeam from './components/teams/SearchTeam';
+import ShowTeams from './components/teams/ShowTeams';
 function App() {
   const router = createBrowserRouter(
     [
@@ -74,6 +75,10 @@ function App() {
                               {
                                 path: 'search-team',
                                 element: <SearchTeam />
+                              },
+                              {
+                                path: 'show-teams',
+                                element: <ShowTeams />
                               }
                             ]
                           }

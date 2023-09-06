@@ -21,7 +21,7 @@ const HeaderSection = () => {
                         <Link to='/dash/teams/search-team'>Search Team</Link>
                     </li>
                     <li>
-                        <Link to='/'>Show Teams</Link>
+                        <Link to='/dash/teams/show-teams'>Show Teams</Link>
                     </li>
                     <li>
                         <Link to='/dash/teams/create-team'>CreateTeam</Link>
