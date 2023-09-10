@@ -10,7 +10,13 @@ const membershipApi = api.injectEndpoints({
         }),
         getMembership: build.query({
             query: ({teamID}) => ({
-                url: `${membershipApiRoute}/get-single/${teamID}`,
+                url: `${membershipApiRoute}/get-single-membership/${teamID}`,
+                method: 'GET'
+            })
+        }),
+        getCheckMembership: build.query({
+            query: ({userID, teamID}) => ({
+                url: `${membershipApiRoute}/check-membership/${userID}/${teamID}`,
                 method: 'GET'
             })
         }),
@@ -34,6 +40,7 @@ const membershipApi = api.injectEndpoints({
 export const {
     useGetAllMembershipsQuery,
     useGetMembershipQuery,
+    useGetCheckMembershipQuery,
     useAddMembershipMutation,
     useDeleteMembershipMutation
 } = membershipApi;

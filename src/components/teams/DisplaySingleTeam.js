@@ -29,6 +29,10 @@ const DisplaySingleTeam = () => {
         refetchMembership();
         return null;
     }
+    const handleVisitTeam = () => {
+        navigate(`/dash/team-conversations/${teamID}`);
+        return null;
+    }
     const handleLeaveTeam = async (membershipID) => {
         await deleteMembership({membershipID});
         refetchMembership();
@@ -61,7 +65,7 @@ const DisplaySingleTeam = () => {
             hiddenControl = false;
             if(typeof data?.leader?._id === 'string' && data.leader._id !== clientID){
                 control = <>
-                    <button type='button'>Visit team</button>
+                    <button type='button' onClick={handleVisitTeam}>Visit team</button>
                     <button
                         type='button' onClick={()=>handleLeaveTeam(dataMembership.membership._id)}
                         disabled={(isLoadingDeleteMembership)}
@@ -69,7 +73,7 @@ const DisplaySingleTeam = () => {
                 </>;
             }else if(typeof data?.leader?._id === 'string' && data.leader._id === clientID){
                 control = <>
-                    <button type='button'>Visit team</button>
+                    <button type='button' onClick={handleVisitTeam}>Visit team</button>
                     <button type='button' onClick={handleEditTeam}>Edit team</button>
                     <button
                         type='button' onClick={handleDeleteTeam} disabled={(isLoadingDeleteTeam === true)}

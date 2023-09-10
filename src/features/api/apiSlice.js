@@ -39,6 +39,7 @@ const api = createApi({
     baseQuery: baseQueryWithReauth,
     //refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
+    tagTypes: ['Posts', 'Comments'],
     endpoints: (builder) => ({})
 });
 

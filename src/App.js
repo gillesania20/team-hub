@@ -13,6 +13,7 @@ import CreateTeam from './components/teams/CreateTeam';
 import EditTeam from './components/teams/EditTeam';
 import SearchTeam from './components/teams/SearchTeam';
 import ShowTeams from './components/teams/ShowTeams';
+import TeamConversations from './components/teamConversations/TeamConversations';
 function App() {
   const router = createBrowserRouter(
     [
@@ -79,6 +80,15 @@ function App() {
                               {
                                 path: 'show-teams',
                                 element: <ShowTeams />
+                              }
+                            ]
+                          },
+                          {
+                            path: 'team-conversations',
+                            children: [
+                              {
+                                path: ':teamID',
+                                element: <TeamConversations />
                               }
                             ]
                           }
