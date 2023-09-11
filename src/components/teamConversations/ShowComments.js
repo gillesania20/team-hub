@@ -1,12 +1,16 @@
 import { useGetAllCommentsQuery } from './../../features/comments/commentApiSlice';
 import Loader from './../loader/Loader';
 import Comment from './Comment';
+import ErrorWithMessage from './../errors/ErrorWithMessage';
+import DefaultError from './../errors/DefaultError';
 const ShowComments = ({postID}) => {
     const { data, isLoading, error } = useGetAllCommentsQuery({postID});
     let content = <></>;
     let listOfComments = null;
     if(isLoading === true){
         content = <Loader />;
+    }else if(typeof error?.data?.message === 'string'){
+        content = <ErrorWithMessage message={error.data.message} />;
     }else if(
         (typeof data?.message === 'string' && data.message === 'comments found')
         && (typeof data?.comments !== 'undefined' && data.comments !== null)
@@ -26,6 +30,8 @@ const ShowComments = ({postID}) => {
         content = <div>
             {listOfComments}
         </div>;
+    }else{
+        content = <DefaultError />;
     }
     return content;
 }

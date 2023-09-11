@@ -1,13 +1,20 @@
+import { useParams } from 'react-router-dom';
 import { useGetAllPostsQuery } from './../../features/posts/postApiSlice';
 import ShowComments from './ShowComments';
+import AddComment from './AddComment';
 import Loader from './../loader/Loader';
 import Post from './Post';
+import ErrorWithMessage from './../errors/ErrorWithMessage';
+import DefaultError from './../errors/DefaultError';
 const ShowPosts = () => {
-    const { data, isLoading, error } = useGetAllPostsQuery({teamID: '64e477536326c138028e673c'});
+    const { teamID } = useParams();
+    const { data, isLoading, error } = useGetAllPostsQuery({teamID});
     let content = <></>;
     let listOfPosts = null;
     if(isLoading === true){
         content = <Loader />;
+    }else if(typeof error?.data?.message === 'string'){
+        content = <ErrorWithMessage message={error.data.message} />;
     }else if(
         (typeof data?.message === 'string' && data.message === 'posts found')
         && (typeof data.posts !== 'undefined' && data.posts !== null)
@@ -23,11 +30,14 @@ const ShowPosts = () => {
                     dislikes={post.dislikes}
                 />
                 <ShowComments postID={post._id} />
+                <AddComment postID={post._id}/>
             </div>;
         });
         content = <div>
             {listOfPosts}
         </div>;
+    }else{
+        content = <DefaultError />;
     }
     return content;
 }

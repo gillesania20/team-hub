@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAddPostMutation } from './../../features/posts/postApiSlice';
-const AddPostForm = () => {
+import { useAddCommentMutation } from './../../features/comments/commentApiSlice';
+const AddCommentForm = ({postID}) => {
     const { teamID } = useParams();
     const [body, setBody] = useState('');
-    const [addPost, {isLoading}] = useAddPostMutation();
+    const [addComment, {isLoading}] = useAddCommentMutation();
     const handleOnChange = (e) => {
         if(e.target.name === 'body'){
             setBody(e.target.value);
@@ -15,12 +15,12 @@ const AddPostForm = () => {
         e.preventDefault();
         let response = null;
         if(body.length > 0){
-            response = await addPost({teamID, body});
+            response = await addComment({teamID, postID, body});
             if(typeof response?.error?.data?.message === 'string'){
                 //error with message
-            }else if(typeof response?.data?.message === 'string' && response.data.message === 'post created'){
+            }else if(typeof response?.data?.message === 'string' && response.data.message === 'comment created'){
                 setBody('');
-                //successfully created post
+                //successfully created comment
             }else{
                 //unknown error
             }
@@ -33,9 +33,9 @@ const AddPostForm = () => {
                 <textarea name='body' value={body} onChange={handleOnChange}></textarea>
             </div>
             <div>
-                <button type='submit' disabled={(isLoading === true)}>Post</button>
+                <button type='submit' disabled={(isLoading === true)}>submit comment</button>
             </div>
         </form>
     );
 }
-export default AddPostForm;
+export default AddCommentForm;

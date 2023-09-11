@@ -41,7 +41,6 @@ const Post = ({userID, created_at, username, postBody, likes, dislikes}) => {
             <div>
                 <button type='button'>like</button>
                 <button type='button'>dislike</button>
-                <button type='button'>comment</button>
             </div>
         </div>;
     }else{
