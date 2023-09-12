@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetAllPostsQuery } from './../../features/posts/postApiSlice';
 import ShowComments from './ShowComments';
@@ -8,6 +9,7 @@ import ErrorWithMessage from './../errors/ErrorWithMessage';
 import DefaultError from './../errors/DefaultError';
 const ShowPosts = () => {
     const { teamID } = useParams();
+    const [showOptions, setShowOptions] = useState('');
     const { data, isLoading, error } = useGetAllPostsQuery({teamID});
     let content = <></>;
     let listOfPosts = null;
@@ -22,6 +24,9 @@ const ShowPosts = () => {
         listOfPosts = data.posts.map((post) => {
             return <div key={post._id}>
                 <Post
+                    showOptions={showOptions}
+                    showOptionsFunc={(post_id)=>setShowOptions(post_id)}
+                    postID={post._id}
                     userID={post.user._id}
                     created_at={post.created_at}
                     username={post.user.username}

@@ -46,7 +46,8 @@ const commentApi = api.injectEndpoints({
                 body: {
                     body
                 }
-            })
+            }),
+            invalidatesTags: [{type: 'Comments', id: 'LIST'}]
         })
     })
 });

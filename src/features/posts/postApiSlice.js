@@ -47,6 +47,13 @@ const postApi = api.injectEndpoints({
                 }
             }),
             invalidatesTags: [{type: 'Posts', id: 'LIST'}]
+        }),
+        deletePost: build.mutation({
+            query: ({postID}) => ({
+                url: `${postApiRoute}/${postID}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: [{type: 'Posts', id: 'LIST'}]
         })
     })
 });
@@ -54,5 +61,6 @@ export const {
     useGetAllPostsQuery,
     useGetPostQuery,
     useAddPostMutation,
-    useUpdatePostMutation
+    useUpdatePostMutation,
+    useDeletePostMutation
 } = postApi;

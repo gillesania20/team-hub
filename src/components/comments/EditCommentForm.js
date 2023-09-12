@@ -39,7 +39,7 @@ const EditCommentForm = ({commentData}) => {
                 <textarea name='body' value={body} onChange={handleOnChange}></textarea>
             </div>
             <div>
-                <button type='submit'>Update</button>
+                <button type='submit' disabled={(isLoading === true)}>Update</button>
                 <button type='button' onClick={handleCancel}>Cancel</button>
             </div>
         </form>
