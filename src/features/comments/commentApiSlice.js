@@ -21,6 +21,12 @@ const commentApi = api.injectEndpoints({
                 return output;
             }
         }),
+        getComment: build.query({
+            query: ({commentID}) => ({
+                url: `${commentApiRoute}/${commentID}`,
+                method: 'GET'
+            })
+        }),
         addComment: build.mutation({
             query: ({teamID, postID, body}) => ({
                 url: `${commentApiRoute}`,
@@ -32,10 +38,21 @@ const commentApi = api.injectEndpoints({
                 }
             }),
             invalidatesTags: [{type: 'Comments', id: 'LIST'}]
+        }),
+        updateComment: build.mutation({
+            query: ({commentID, body}) => ({
+                url: `${commentApiRoute}/${commentID}`,
+                method: 'PATCH',
+                body: {
+                    body
+                }
+            })
         })
     })
 });
 export const {
     useGetAllCommentsQuery,
-    useAddCommentMutation
+    useGetCommentQuery,
+    useAddCommentMutation,
+    useUpdateCommentMutation
 } = commentApi;

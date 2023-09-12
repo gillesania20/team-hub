@@ -15,6 +15,7 @@ import SearchTeam from './components/teams/SearchTeam';
 import ShowTeams from './components/teams/ShowTeams';
 import TeamConversations from './components/teamConversations/TeamConversations';
 import EditPost from './components/posts/EditPost';
+import EditComment from './components/comments/EditComment';
 function App() {
   const router = createBrowserRouter(
     [
@@ -99,6 +100,15 @@ function App() {
                               {
                                 path: 'edit-post/:teamID/:postID',
                                 element: <EditPost />
+                              }
+                            ]
+                          },
+                          {
+                            path: 'comments',
+                            children: [
+                              {
+                                path: 'edit-comment/:teamID/:commentID',
+                                element: <EditComment />
                               }
                             ]
                           }
