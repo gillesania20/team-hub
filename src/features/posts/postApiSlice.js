@@ -21,6 +21,12 @@ const postApi = api.injectEndpoints({
                 return output;
             }
         }),
+        getPost: build.query({
+            query: ({postID}) => ({
+                url: `${postApiRoute}/${postID}`,
+                method: 'GET'
+            })
+        }),
         addPost: build.mutation({
             query: ({teamID, body}) => ({
                 url: `${postApiRoute}`,
@@ -31,10 +37,22 @@ const postApi = api.injectEndpoints({
                 }
             }),
             invalidatesTags: [{type: 'Posts', id: 'LIST'}]
+        }),
+        updatePost: build.mutation({
+            query: ({postID, body}) => ({
+                url: `${postApiRoute}/${postID}`,
+                method: 'PATCH',
+                body: {
+                    body
+                }
+            }),
+            invalidatesTags: [{type: 'Posts', id: 'LIST'}]
         })
     })
 });
 export const {
     useGetAllPostsQuery,
-    useAddPostMutation
+    useGetPostQuery,
+    useAddPostMutation,
+    useUpdatePostMutation
 } = postApi;
