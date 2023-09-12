@@ -48,6 +48,13 @@ const commentApi = api.injectEndpoints({
                 }
             }),
             invalidatesTags: [{type: 'Comments', id: 'LIST'}]
+        }),
+        deleteComment: build.mutation({
+            query: ({commentID}) => ({
+                url: `${commentApiRoute}/${commentID}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: [{type: 'Comments', id: 'LIST'}]
         })
     })
 });
@@ -55,5 +62,6 @@ export const {
     useGetAllCommentsQuery,
     useGetCommentQuery,
     useAddCommentMutation,
-    useUpdateCommentMutation
+    useUpdateCommentMutation,
+    useDeleteCommentMutation
 } = commentApi;
