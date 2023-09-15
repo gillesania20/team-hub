@@ -14,7 +14,7 @@ const Post = ({showOptions, showOptionsFunc, postID, userID, created_at, usernam
     const { teamID } = useParams();
     const clientID = useSelector(selectUserID);
     const { data, isLoading, error } = useGetCheckMembershipQuery({userID, teamID});
-    const { data: dataPostVote, isLoading: isLoadingPostVote, error: errorPostVote, refetch } = useGetPostVoteQuery({postID});
+    const { data: dataPostVote, isLoading: isLoadingPostVote, error: errorPostVote } = useGetPostVoteQuery({postID});
     const [deletePost, {isLoading: isLoadingDeletePost}] = useDeletePostMutation();
     const [addOrUpdatePostVote, {isLoading: isLoadingAddOrUpdatePostVote}] = useAddOrUpdatePostVoteMutation();
     const [deletePostVote, {isLoading: isLoadingDeletePostVote}] = useDeletePostVoteMutation();
@@ -41,25 +41,21 @@ const Post = ({showOptions, showOptionsFunc, postID, userID, created_at, usernam
     }
     const handleLike = async () => {
         await addOrUpdatePostVote({teamID, postID, vote: 1});
-        refetch();
         return null;
     }
     const handleDislike = async () => {
         await addOrUpdatePostVote({teamID, postID, vote: -1});
-        refetch();
         return null;
     }
     const handleUndoLike = async (postVoteID) => {
         await deletePostVote({postVoteID, postID});
-        await refetch();
         return null;
     }
     const handleUndoDislike = async (postVoteID) => {
         await deletePostVote({postVoteID, postID});
-        refetch();
         return null;
     }
-    if(isLoading === true || isLoadingPostVote){
+    if(isLoading === true || isLoadingPostVote === true){
         content = <Loader />;
     }else if(
         (typeof data?.message === 'string' && data.message === 'membership found')
