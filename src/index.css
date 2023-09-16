@@ -1,8 +1,22 @@
-body {
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  font-size: 16px;
+  letter-spacing: .05em;
+}
+
+form label {
+  font-size: .8em;
+}
+
+.form-min-width {
+  min-width: 300px;
+}
+
+.message-max-width {
+  max-width: 300px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
