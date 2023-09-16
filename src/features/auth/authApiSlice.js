@@ -1,5 +1,5 @@
 import { api } from './../api/apiSlice';
-import { setToken, setUserID } from './../auth/authSlice';
+import { setToken, setUserID, resetToken, resetUserID } from './../auth/authSlice';
 const authApiRoute = 'auth';
 const authApi = api.injectEndpoints({
     endpoints: (build) => ({
@@ -34,10 +34,29 @@ const authApi = api.injectEndpoints({
                     //error
                 }
             }
+        }),
+        logout: build.mutation({
+            query: () => ({
+                url: `${authApiRoute}/logout`,
+                method: 'POST'
+            }),
+            async onQueryStarted(
+                args,
+                {dispatch, queryFulfilled}
+            ){
+                try{
+                    await queryFulfilled;
+                    dispatch(resetToken());
+                    dispatch(resetUserID());
+                }catch(err){
+                    //error
+                }
+            }
         })
     })
 });
 export const {
     useLoginMutation,
-    useRefreshMutation
+    useRefreshMutation,
+    useLogoutMutation
 } = authApi;
