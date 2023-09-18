@@ -3,7 +3,7 @@ import { setAcceptsCookies } from './../auth/authSlice';
 const cookieCheckerApiRoute = "cookie_checker";
 const cookieCheckerApi = api.injectEndpoints({
     endpoints: (build) => ({
-        checkCookie: build.mutation({
+        getCookie: build.query({
             query: () => ({
                 url: `${cookieCheckerApiRoute}`,
                 method: 'GET'
@@ -14,13 +14,15 @@ const cookieCheckerApi = api.injectEndpoints({
             ){
                 try{
                     const {data} = await queryFulfilled;
-                    if(typeof data?.message === 'string' && data.message === 'cookie found'){
-                        dispatch(setAcceptsCookies(true));
+                    if(typeof data?.message === 'string'){
+                        if(data.message === 'cookie found'){
+                            dispatch(setAcceptsCookies(true));
+                        }else if(data.message === 'cookie not found'){
+                            dispatch(setAcceptsCookies(false));
+                        }
                     }
                 }catch(err){
-                    if(typeof err?.error?.data?.message === 'string' && err.error.data.message === 'cookie not found'){
-                        dispatch(setAcceptsCookies(false));
-                    }
+                    //error
                 }
             }
         }),
@@ -33,6 +35,6 @@ const cookieCheckerApi = api.injectEndpoints({
     })
 });
 export const {
-    useCheckCookieMutation,
+    useGetCookieQuery,
     useSetCookieMutation
 } =  cookieCheckerApi;
