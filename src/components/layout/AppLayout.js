@@ -22,7 +22,7 @@ const AppLayout = () => {
                 {
                     (acceptsCookies === false)?
                         <div
-                            className='bg-danger text-light px-2 py-5 fw-bold'
+                            className='bg-danger text-light px-2 py-5 fw-bold text-center'
                         >Please allow 3rd-party cookies to login properly. This app uses 3rd party cookies for authentication.</div>
                         :''
                 }

@@ -25,26 +25,48 @@ const HeaderSection = () => {
     }, [token]);
     return(
         <header>
-            <div>
-                <span>
-                    Welcome <Link to={`/dash/users/display-user/${userID}`}>{username}
-                    </Link>
-                </span>
-                <button type='button' onClick={handleLogout} disabled={(isLoading === true)}>Logout</button>
+            <div className='bg-dark'>
+                <div className='container'>
+                    <div className='text-light d-flex justify-content-end py-2'>
+                        <span className='me-1 lh-lg'>
+                            Welcome <Link to={`/dash/users/display-user/${userID}`}
+                                className='text-decoration-none text-danger'>{username}
+                            </Link>
+                        </span>
+                        <button type='button' onClick={handleLogout} disabled={(isLoading === true)}
+                            className='btn btn-outline-danger btn-sm'>Logout</button>
+                    </div>
+                </div>
             </div>
-            <div>
-                <ul>
-                    <li>
-                        <Link to='/dash/teams/search-team'>Search Team</Link>
-                    </li>
-                    <li>
-                        <Link to='/dash/teams/show-teams'>Show Teams</Link>
-                    </li>
-                    <li>
-                        <Link to='/dash/teams/create-team'>Create Team</Link>
-                    </li>
-                </ul>
-            </div>
+            <nav className='navbar bg-body-tertiary'>
+                <div className='container'>
+                    <span className='navbar-brand'>TeamHub</span>
+                    <button type='button' className='navbar-toggler' data-bs-toggle='offcanvas' data-bs-target='#offcanvasNavbar'
+                        aria-controls='offcanvasNavbar' aria-label='Toggle navigation'
+                    >
+                        <span className='navbar-toggler-icon'></span>
+                    </button>
+                    <div id='offcanvasNavbar' className='offcanvas offcanvas-end' tabindex='-1' aria-labelledby='offcanvasNavbarLabel'>
+                        <div className='offcanvas-header'>
+                            <h5 id='offcanvasNavbarLabel' className='offcanvas-title'>Menu</h5>
+                            <button type='button' className='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
+                        </div>
+                        <div className='offcanvas-body'>
+                            <ul className='navbar-nav justify-content-end'>
+                                <li className='nav-item'>
+                                    <Link to='/dash/teams/search-team' className='nav-link active'>Search Team</Link>
+                                </li>
+                                <li className='nav-item'>
+                                    <Link to='/dash/teams/show-teams' className='nav-link'>Show Teams</Link>
+                                </li>
+                                <li className='nav-item'>
+                                    <Link to='/dash/teams/create-team' className='nav-link'>Create Team</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </header>
     );
 }
