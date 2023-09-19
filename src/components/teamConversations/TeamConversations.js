@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import useTitle from './../../hooks/useTitle';
 import { useGetMembershipQuery } from './../../features/memberships/membershipApiSlice';
 import DisplayTeamInfo from './DisplayTeamInfo';
 import AddPost from './AddPost';
@@ -11,6 +12,7 @@ const TeamConversations = () => {
     const { teamID } = useParams();
     const { data, isLoading, error } = useGetMembershipQuery({teamID});
     let content = <></>;
+    useTitle('team-conversations', 'Team Conversations');
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof data?.message === 'string' && data.message === 'membership found'){

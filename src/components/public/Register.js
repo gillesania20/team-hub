@@ -1,5 +1,7 @@
+import useTitle from './../../hooks/useTitle';
 import RegisterForm from './RegisterForm';
 const Register = () => {
+    useTitle('register', 'Register');
     return (
         <div className='min-vh-100 d-flex justify-content-center align-items-center'>
             <div className='shadow-lg py-5 px-3 rounded'>

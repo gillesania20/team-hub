@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import useTitle from './../../hooks/useTitle';
 import { useGetPostQuery } from './../../features/posts/postApiSlice';
 import EditPostForm from './EditPostForm';
 import Loader from './../loader/Loader';
@@ -8,6 +9,7 @@ const EditPost = () => {
     const { postID } = useParams();
     const { data, isLoading, error } = useGetPostQuery({postID});
     let content = <></>;
+    useTitle('edit-post', 'Edit Post');
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){

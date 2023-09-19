@@ -2,12 +2,16 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import decodeToken from './../../functions/decodeToken';
-import { selectToken, selectUserID } from './../../features/auth/authSlice';
+import { selectToken, selectUserID, selectCurrentPage } from './../../features/auth/authSlice';
 import { useLogoutMutation } from './../../features/auth/authApiSlice';
 const HeaderSection = () => {
     const token = useSelector(selectToken);
     const userID = useSelector(selectUserID);
+    const currentPage = useSelector(selectCurrentPage);
     const [username, setUsername] = useState('unknown');
+    const [searchTeamActiveOrNot, setSearchTeamActiveOrNot] = useState('');
+    const [showTeamsActiveOrNot, setShowTeamsActiveOrNot] = useState('');
+    const [createTeamActiveOrNot, setCreateTeamActiveOrNot] = useState('');
     const [logout, {isLoading}] = useLogoutMutation();
     const navigate = useNavigate();
     const handleLogout = async () => {
@@ -23,6 +27,25 @@ const HeaderSection = () => {
             setUsername('unknown');
         }
     }, [token]);
+    useEffect(() => {
+        if(currentPage === 'search-team'){
+            setSearchTeamActiveOrNot('active');
+            setShowTeamsActiveOrNot('');
+            setCreateTeamActiveOrNot('');
+        }else if(currentPage === 'show-teams'){
+            setSearchTeamActiveOrNot('');
+            setShowTeamsActiveOrNot('active');
+            setCreateTeamActiveOrNot('');
+        }else if(currentPage === 'create-team'){
+            setSearchTeamActiveOrNot('');
+            setShowTeamsActiveOrNot('');
+            setCreateTeamActiveOrNot('active');
+        }else{
+            setSearchTeamActiveOrNot('');
+            setShowTeamsActiveOrNot('');
+            setCreateTeamActiveOrNot('');
+        }
+    }, [currentPage]);
     return(
         <header>
             <div className='bg-dark'>
@@ -46,7 +69,7 @@ const HeaderSection = () => {
                     >
                         <span className='navbar-toggler-icon'></span>
                     </button>
-                    <div id='offcanvasNavbar' className='offcanvas offcanvas-end' tabindex='-1' aria-labelledby='offcanvasNavbarLabel'>
+                    <div id='offcanvasNavbar' className='offcanvas offcanvas-end' tabIndex='-1' aria-labelledby='offcanvasNavbarLabel'>
                         <div className='offcanvas-header'>
                             <h5 id='offcanvasNavbarLabel' className='offcanvas-title'>Menu</h5>
                             <button type='button' className='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
@@ -54,13 +77,13 @@ const HeaderSection = () => {
                         <div className='offcanvas-body'>
                             <ul className='navbar-nav justify-content-end'>
                                 <li className='nav-item'>
-                                    <Link to='/dash/teams/search-team' className='nav-link active'>Search Team</Link>
+                                    <Link to='/dash/teams/search-team' className={`nav-link ${searchTeamActiveOrNot}`}>Search Team</Link>
                                 </li>
                                 <li className='nav-item'>
-                                    <Link to='/dash/teams/show-teams' className='nav-link'>Show Teams</Link>
+                                    <Link to='/dash/teams/show-teams' className={`nav-link ${showTeamsActiveOrNot}`}>Show Teams</Link>
                                 </li>
                                 <li className='nav-item'>
-                                    <Link to='/dash/teams/create-team' className='nav-link'>Create Team</Link>
+                                    <Link to='/dash/teams/create-team' className={`nav-link ${createTeamActiveOrNot}`}>Create Team</Link>
                                 </li>
                             </ul>
                         </div>

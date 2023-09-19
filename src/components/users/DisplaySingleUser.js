@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
+import useTitle from './../../hooks/useTitle';
 import { useGetUserQuery } from './../../features/users/userApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
 import Loader from './../loader/Loader';
@@ -13,6 +14,7 @@ const DisplaySingleUser = () => {
     let dateArray = null;
     let birthday = null;
     let content = <></>;
+    useTitle('user-info', 'User Info');
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){

@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import useTitle from './../../hooks/useTitle';
 import { useGetTeamQuery } from './../../features/teams/teamApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
 import EditTeamForm from './EditTeamForm';
@@ -12,6 +13,7 @@ const EditTeam = () => {
     const { teamID } = useParams();
     const { data, isLoading, error } = useGetTeamQuery({teamID});
     let content = null;
+    useTitle('edit-team', 'Edit Team');
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){

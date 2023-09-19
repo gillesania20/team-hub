@@ -16,7 +16,6 @@ const GetCookie = () => {
     ){
         content = <Outlet />;
     }else{
-        console.log('test')
         content = <DefaultError />
     }
     return content;

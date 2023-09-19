@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import useTitle from './../../hooks/useTitle';
 import { useGetAllMembershipsQuery } from './../../features/memberships/membershipApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
 import Loader from './../loader/Loader';
@@ -27,6 +28,7 @@ const ShowTeams = () => {
         navigate(`/dash/teams/display-team/${teamID}`);
         return null;
     }
+    useTitle('show-teams', 'Show Teams');
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){

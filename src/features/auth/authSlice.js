@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     acceptsCookies: null,
     token: null,
-    userID: null
+    userID: null,
+    currentPage: '',
 }
 const authSlice = createSlice({
     name: 'auth',
@@ -22,6 +23,9 @@ const authSlice = createSlice({
         },
         resetUserID: (state) => {
             state.userID = null;
+        },
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload;
         }
     }
 });
@@ -31,8 +35,10 @@ export const {
     setToken,
     resetToken,
     setUserID,
-    resetUserID
+    resetUserID,
+    setCurrentPage
 } = authSlice.actions;
 export const selectAcceptsCookies = (state) => state.auth.acceptsCookies;
 export const selectToken = (state) => state.auth.token;
 export const selectUserID = (state) => state.auth.userID;
+export const selectCurrentPage = (state) => state.auth.currentPage;

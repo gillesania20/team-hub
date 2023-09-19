@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import useTitle from './../../hooks/useTitle';
 import { useGetTeamQuery, useDeleteTeamMutation } from './../../features/teams/teamApiSlice';
 import {
     useGetMembershipQuery, useAddMembershipMutation, useDeleteMembershipMutation
@@ -47,6 +48,7 @@ const DisplaySingleTeam = () => {
         refetch();
         return null;
     }
+    useTitle('team-info', 'Team Info');
     if(isLoading === true || isLoadingMembership === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){

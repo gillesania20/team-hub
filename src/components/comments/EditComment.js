@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import useTitle from './../../hooks/useTitle';
 import { useGetCommentQuery } from './../../features/comments/commentApiSlice';
 import EditCommentForm from './EditCommentForm';
 import Loader from './../loader/Loader';
@@ -8,6 +9,7 @@ const EditComment = () => {
     const { commentID } = useParams();
     const { data, isLoading, error } = useGetCommentQuery({commentID});
     let content = <></>;
+    useTitle('edit-comment', 'Edit Comment');
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){

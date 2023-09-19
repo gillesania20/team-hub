@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import useTitle from './../../hooks/useTitle';
 import { useGetUserQuery } from './../../features/users/userApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
 import EditUserForm from './EditUserForm';
@@ -12,6 +13,7 @@ const EditUser = () => {
     const { userID } = useParams();
     const { data, isLoading, error } = useGetUserQuery({userID});
     let content = <></>;
+    useTitle('edit-user', 'Edit User');
     if(isLoading === true){
         content = <Loader />;
     }else if(clientID !== userID){
