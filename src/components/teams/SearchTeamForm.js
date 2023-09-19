@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSearchTeamMutation } from './../../features/teams/teamApiSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 const SearchTeamForm = () => {
     const [teamName, setTeamName] = useState('');
     const [teamsFound, setTeamsFound] = useState([]);
@@ -29,16 +31,30 @@ const SearchTeamForm = () => {
         navigate(`/dash/teams/display-team/${teamID}`);
         return null;
     }
-    const searchForm = <form onSubmit={handleOnSubmit}>
-        <input type='text' name='tname' value={teamName} onChange={handleOnChange} />
-        <button type='submit' disabled={(isLoading === true)}>Search Team</button>
+    const searchForm = <form onSubmit={handleOnSubmit} className='mb-3'>
+        <div className='mb-3'>
+            <div className='input-group'>
+                <span className='input-group-text rounded-start-pill border border-primary'>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className='text-primary' />
+                </span>
+                <input type='text' name='tname' value={teamName} onChange={handleOnChange} autoComplete='off'
+                    className='form-control shadow-sm rounded-end-pill border border-primary' />
+            </div>
+        </div>
+        <div className='text-center'>
+            <button type='submit' disabled={(isLoading === true)}
+                className='btn btn-outline-primary shadow-sm'>Search Team</button>
+        </div>
     </form>;
     return (
         <div>
             {searchForm}
-            {teamsFound.map((team) => {
-                return <div key={team._id} onClick={()=>handleOnClick(team._id)}>{team.name} {team.leader.username}</div>
-            })}
+            <div className=''>
+                {teamsFound.map((team) => {
+                    return <div key={team._id} onClick={()=>handleOnClick(team._id)}
+                        className='bg-primary p-3 mb-1 rounded text-light my-item cursor-pointer'>{team.name} {team.leader.username}</div>
+                })}
+            </div>
         </div>
     );
 }

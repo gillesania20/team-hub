@@ -63,7 +63,7 @@ const HeaderSection = () => {
             </div>
             <nav className='navbar bg-body-tertiary'>
                 <div className='container'>
-                    <span className='navbar-brand'>TeamHub</span>
+                    <span className='navbar-brand text-primary fw-bold'>TeamHub</span>
                     <button type='button' className='navbar-toggler' data-bs-toggle='offcanvas' data-bs-target='#offcanvasNavbar'
                         aria-controls='offcanvasNavbar' aria-label='Toggle navigation'
                     >

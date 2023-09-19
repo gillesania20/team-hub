@@ -21,3 +21,15 @@ form label {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.social-media-icons {
+  font-size: 25px;
+}
+
+.my-item {
+  transition-duration: .4s;
+}
+
+.my-item:hover {
+  transform: scale(1.1);
+}
