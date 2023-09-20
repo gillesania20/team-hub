@@ -14,10 +14,6 @@ form label {
   min-width: 300px;
 }
 
-.message-max-width {
-  max-width: 300px;
-}
-
 .cursor-pointer {
   cursor: pointer;
 }

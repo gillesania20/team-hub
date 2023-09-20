@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useAddTeamMutation } from './../../features/teams/teamApiSlice';
-const CreateTeamForm = () => {
-    const [message, setMessage] = useState('');
+const CreateTeamForm = ({messageFunc, messageColorFunc}) => {
     const [name, setName] = useState('');
     const [addTeam, {isLoading}] = useAddTeamMutation();
     const handleOnChange = (e) => {
@@ -14,29 +13,33 @@ const CreateTeamForm = () => {
         e.preventDefault();
         let response = null;
         if(name.length <= 0){
-            setMessage('please fill up all required fields');
+            messageFunc('please fill up all required fields');
+            messageColorFunc('alert-danger');
         }else{
             response = await addTeam({name});
             if(typeof response?.error?.data?.message === 'string'){
-                setMessage(response.error.data.message);
+                messageFunc(response.error.data.message);
+                messageColorFunc('alert-danger');
             }else if(typeof response?.data?.message === 'string' && response.data.message === 'team created'){
-                setMessage(response.data.message);
+                messageFunc(response.data.message);
+                messageColorFunc('alert-success');
                 setName('');
             }else{
-                setMessage('unknown error');
+                messageFunc('unknown error');
+                messageColorFunc('alert-danger');
             }
         }
         return null;
     }
     return (
-        <form onSubmit={handleOnSubmit}>
-            {(message.length > 0)?<div>{message}</div>:''}
-            <div>
-                <label>Name: </label>
-                <input type='text' name='name' value={name} onChange={handleOnChange} />
+        <form onSubmit={handleOnSubmit} className='form-min-width'>
+            <div className='mb-3'>
+                <label className='form-label text-secondary'>Name: </label>
+                <input type='text' name='name' value={name} onChange={handleOnChange} className='form-control border
+                    border-primary' />
             </div>
-            <div>
-                <button type='submit' disabled={(isLoading === true)}>Create</button>
+            <div className='text-center'>
+                <button type='submit' disabled={(isLoading === true)} className='btn btn-outline-primary'>Create</button>
             </div>
         </form>
     );

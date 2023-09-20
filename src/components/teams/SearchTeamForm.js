@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSearchTeamMutation } from './../../features/teams/teamApiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-const SearchTeamForm = () => {
+const SearchTeamForm = ({messageFunc, messageColorFunc}) => {
     const [teamName, setTeamName] = useState('');
     const [teamsFound, setTeamsFound] = useState([]);
     const [searchTeam, {isLoading}] = useSearchTeamMutation();
@@ -17,12 +17,20 @@ const SearchTeamForm = () => {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         const response = await searchTeam({teamName});
-        if(
+        if(typeof response?.error?.data?.message === 'string'){
+            messageFunc(response.error.data.message);
+            messageColorFunc('alert-danger');
+            setTeamsFound([]);
+        }else if(
             typeof response?.data?.message === 'string' && response.data.message === 'teams found'
             && typeof response?.data?.teams !== 'undefined' && response.data.teams !== null
         ){
+            messageFunc(response.data.message);
+            messageColorFunc('alert-success');
             setTeamsFound(response.data.teams);
         }else{
+            messageFunc('unknown error');
+            messageColorFunc('alert-danger');
             setTeamsFound([]);
         }
         return null;
@@ -38,18 +46,18 @@ const SearchTeamForm = () => {
                     <FontAwesomeIcon icon={faMagnifyingGlass} className='text-primary' />
                 </span>
                 <input type='text' name='tname' value={teamName} onChange={handleOnChange} autoComplete='off'
-                    className='form-control shadow-sm rounded-end-pill border border-primary' />
+                    className='form-control rounded-end-pill border border-primary' />
             </div>
         </div>
         <div className='text-center'>
             <button type='submit' disabled={(isLoading === true)}
-                className='btn btn-outline-primary shadow-sm'>Search Team</button>
+                className='btn btn-outline-primary'>Search Team</button>
         </div>
     </form>;
     return (
         <div>
             {searchForm}
-            <div className=''>
+            <div>
                 {teamsFound.map((team) => {
                     return <div key={team._id} onClick={()=>handleOnClick(team._id)}
                         className='bg-primary p-3 mb-1 rounded text-light my-item cursor-pointer'>{team.name} {team.leader.username}</div>

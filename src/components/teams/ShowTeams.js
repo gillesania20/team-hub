@@ -12,6 +12,7 @@ const ShowTeams = () => {
     const navigate = useNavigate();
     let content = null;
     let listOfTeams = null;
+    let teamNotFound = null;
     let copiedArray = null;
     const compareFn = (a, b) => {
         let output = null;
@@ -40,20 +41,35 @@ const ShowTeams = () => {
         copiedArray = data.memberships.map((membership)=>membership);
         copiedArray.sort(compareFn);
         listOfTeams = (copiedArray.map((membership) => {
-            return <div key={membership._id} onClick={()=>handleOnClick(membership.team._id)}>
-                <div>
-                    <span>Name: <span>{membership.team.name}</span></span>
-                    <span>Role: <span>{(membership.team.leader._id === clientID)?'Leader':'Member'}</span></span>
+            return <div key={membership._id} onClick={()=>handleOnClick(membership.team._id)} className='bg-primary p-3 mb-1 rounded
+                text-light my-item cursor-pointer'>
+                <div className='d-flex justify-content-between mb-2'>
+                    <span className='me-2'>
+                        <span className='fw-bold'>Name: </span>
+                        <span className='text-break'>{membership.team.name}</span>
+                    </span>
+                    <span>
+                        <span className='fw-bold'>Role: </span>
+                        <span className='text-break'>{(membership.team.leader._id === clientID)?'Leader':'Member'}</span>
+                    </span>
                 </div>
                 <div>
-                    <span>Leader: <span>{membership.team.leader.username}</span></span>
+                    <span>
+                        <span className='fw-bold'>Leader: </span>
+                        <span className='text-break'>{membership.team.leader.username}</span>
+                    </span>
                 </div>
             </div>
         }));
-        content = <div>
-            <h1>Show Teams</h1>
+        teamNotFound = <div>You're not a member of a team yet.</div>;
+        content = <div className='vh-100 d-flex justify-content-center align-items-center'>
             <div>
-                {listOfTeams}
+                <h1 className='text-center text-primary mb-4 fw-bold'>Show Teams</h1>
+                <div>
+                    {(data.memberships.length > 0)?
+                        listOfTeams
+                        :teamNotFound}
+                </div>
             </div>
         </div>;
     }else{

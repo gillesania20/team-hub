@@ -1,12 +1,21 @@
+import { useState } from 'react';
 import useTitle from './../../hooks/useTitle';
 import SearchTeamForm from './SearchTeamForm';
+import AlertMessage from './../alerts/AlertMessage';
 const SearchTeam = () => {
+    const [message, setMessage] = useState('');
+    const [messageColor, setMessageColor] = useState('');
     useTitle('search-team', 'Search Team');
     return (
-        <div className='vh-100 d-flex justify-content-center align-items-center'>
-            <div className=''>
-                <h1 className='text-center mb-4 text-primary fw-bold'>Search Team</h1>
-                <SearchTeamForm />
+        <div>
+            {(message.length > 0)?
+            <AlertMessage message={message} messageColor={messageColor} messageFunc={(input)=>setMessage(input)} />
+            :''}
+            <div className='vh-100 d-flex justify-content-center align-items-center'>
+                <div>
+                    <h1 className='text-center mb-3 text-primary fw-bold'>Search Team</h1>
+                    <SearchTeamForm messageFunc={(input)=>setMessage(input)} messageColorFunc={(input)=>setMessageColor(input)} />
+                </div>
             </div>
         </div>
     );

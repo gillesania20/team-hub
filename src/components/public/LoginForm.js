@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation, useRefreshMutation } from './../../features/auth/authApiSlice';
-const LoginForm = () => {
-    const [message, setMessage] = useState('');
-    const [messageColor, setMessageColor] = useState('')
+const LoginForm = ({messageFunc, messageColorFunc}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [login, {isLoading}] = useLoginMutation();
@@ -22,41 +20,40 @@ const LoginForm = () => {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         if(username.length <= 0 || password.length <= 0){
-            setMessage('please fill up all required fields');
-            setMessageColor('text-danger');
+            messageFunc('please fill up all required fields');
+            messageColorFunc('alert-danger');
         }else{
             response = await login({username, password});
             if(typeof response?.error?.data?.message === 'string'){
-                setMessage(response.error.data.message);
-                setMessageColor('text-danger');
+                messageFunc(response.error.data.message);
+                messageColorFunc('alert-danger');
             }else if(typeof response?.data?.message === 'string' && response.data.message === 'successful login'){
                 responseForRefresh = await refresh();
                 if(typeof responseForRefresh?.error?.data?.message === 'string'){
-                    setMessage(responseForRefresh.error.data.message);
-                    setMessageColor('text-danger');
+                    messageFunc(responseForRefresh.error.data.message);
+                    messageColorFunc('alert-danger');
                 }else if(
                     typeof responseForRefresh?.data?.message === 'string'
                     && responseForRefresh.data.message === 'refresh successful'
                 ){
-                    setMessage(response.data.message);
-                    setMessageColor('text-success');
+                    messageFunc(response.data.message);
+                    messageColorFunc('alert-success');
                     setUsername('');
                     setPassword('');
                     navigate('/dash/teams/search-team');
                 }else{
-                    setMessage('unknown error');
-                    setMessageColor('text-danger');
+                    messageFunc('unknown error');
+                    messageColorFunc('alert-danger');
                 }
             }else{
-                setMessage('unknown error');
-                setMessageColor('text-danger');
+                messageFunc('unknown error');
+                messageColorFunc('alert-danger');
             }
         }
         return null;
     }
     return (
         <form onSubmit={handleOnSubmit} className='form-min-width'>
-            {(message.length > 0)?<div className={`message-max-width text-center text-uppercase ${messageColor}`}>{message}</div>:''}
             <div>
                 <label htmlFor='uname' className='form-label text-secondary cursor-pointer'>Username: </label>
                 <input type="text" name="uname" value={username} onChange={handleOnChange} id='uname' className='form-control'
