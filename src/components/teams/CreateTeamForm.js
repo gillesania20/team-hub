@@ -34,8 +34,8 @@ const CreateTeamForm = ({messageFunc, messageColorFunc}) => {
     return (
         <form onSubmit={handleOnSubmit} className='form-min-width'>
             <div className='mb-3'>
-                <label className='form-label text-secondary'>Name: </label>
-                <input type='text' name='name' value={name} onChange={handleOnChange} className='form-control border
+                <label htmlFor='name' className='form-label text-secondary cursor-pointer'>Name: </label>
+                <input type='text' name='name' value={name} onChange={handleOnChange} id='name' className='form-control border
                     border-primary' />
             </div>
             <div className='text-center'>

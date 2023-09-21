@@ -53,24 +53,25 @@ const RegisterForm = ({messageFunc, messageColorFunc}) => {
     return (
         <div>
             <form onSubmit={handleOnSubmit} className='form-min-width'>
-                <div>
-                    <label htmlFor='uname' className='form-label cursor-pointer'>Username: </label>
-                    <input type="text" name='uname' value={username} onChange={handleOnChange} id='uname' className='form-control'
-                        autoComplete='off' />
+                <div className='mb-2'>
+                    <label htmlFor='uname' className='form-label cursor-pointer text-secondary'>Username: </label>
+                    <input type="text" name='uname' value={username} onChange={handleOnChange} id='uname'
+                        className='form-control border border-primary' autoComplete='off' />
                 </div>
-                <div>
-                    <label htmlFor='bday' className='form-labe cursor-pointer'>Birthday:</label>
+                <div className='mb-2'>
+                    <label htmlFor='bday' className='form-label cursor-pointer text-secondary'>Birthday:</label>
                     <input type="date" name='bday' value={birthday} onChange={handleOnChange} min="1900-01-01" max={maxDate} 
-                        id='bday' className='form-control' />
+                        id='bday' className='form-control border border-primary' />
                 </div>
-                <div>
-                    <label htmlFor='pass' className='form-label cursor-pointer'>Password: </label>
-                    <input type="password" name='pass' value={password} onChange={handleOnChange} id='pass' className='form-control' />
+                <div className='mb-2'>
+                    <label htmlFor='pass' className='form-label cursor-pointer text-secondary'>Password: </label>
+                    <input type="password" name='pass' value={password} onChange={handleOnChange} id='pass'
+                        className='form-control border border-primary' />
                 </div>
                 <div className='mb-3'>
-                    <label htmlFor='rpass' className='form-label cursor-pointer'>Retype password: </label>
+                    <label htmlFor='rpass' className='form-label cursor-pointer text-secondary'>Retype password: </label>
                     <input type="password" name='rpass' value={retypePassword} onChange={handleOnChange}
-                        disabled={(password.length <= 0)} id='rpass' className='form-control' />
+                        disabled={(password.length <= 0)} id='rpass' className='form-control border border-primary' />
                 </div>
                 <div className='mb-3'>
                     <button type="submit" disabled={(isLoading === true)} className='btn btn-primary w-100'>Sign-up</button>

@@ -54,15 +54,15 @@ const LoginForm = ({messageFunc, messageColorFunc}) => {
     }
     return (
         <form onSubmit={handleOnSubmit} className='form-min-width'>
-            <div>
+            <div className='mb-2'>
                 <label htmlFor='uname' className='form-label text-secondary cursor-pointer'>Username: </label>
-                <input type="text" name="uname" value={username} onChange={handleOnChange} id='uname' className='form-control'
-                    autoComplete='off' />
+                <input type="text" name="uname" value={username} onChange={handleOnChange} id='uname'
+                    className='form-control border border-primary' autoComplete='off' />
             </div>
             <div className='mb-3'>
                 <label htmlFor='pass' className='form-label text-secondary cursor-pointer'>Password: </label>
                 <input type="password" name="pass" value={password} onChange={handleOnChange}
-                    id='pass' className='form-control' />
+                    id='pass' className='form-control border border-primary' />
             </div>
             <div className='mb-3'>
                 <button type="submit" disabled={(isLoading === true || isLoadingRefresh === true)}
