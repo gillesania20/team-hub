@@ -7,12 +7,12 @@ import ErrorWithMessage from './../errors/ErrorWithMessage';
 import DefaultError from './../errors/DefaultError';
 import NotAuthorized from './../errors/NotAuthorized';
 const VerifyUser = () => {
-    const [refresh, {isLoading, data, error}] = useRefreshMutation();
+    const [refresh, {isUninitialized, isLoading, data, error}] = useRefreshMutation();
     let content = <></>;
     useEffect(() => {
         refresh();
     }, [refresh]);
-    if(isLoading === true){
+    if(isUninitialized === true || isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){
         if(error.data.message === 'no refreshToken cookie'){

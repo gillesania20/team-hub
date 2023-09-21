@@ -15,21 +15,23 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
     let refreshResult = null;
-    if(
-        typeof result?.error?.data?.message === 'string'
-        && result.error.data.message === 'jwt expired'
-    ){
-        refreshResult = await baseQuery({
-            url: '/auth/refresh',
-            method: 'POST'
-        }, api, extraOptions);
+    if(typeof result?.error?.data?.message === 'string'){
         if(
-            typeof refreshResult?.data?.message === 'string'
-            && refreshResult.data.message === 'refresh successful'
+            result.error.data.message === 'jwt expired'
+            || result.error.data.message === 'not authorized'
         ){
-            api.dispatch(setToken(refreshResult.data.accessToken));
-            api.dispatch(setUserID(refreshResult.data.userID));
-            result = await baseQuery(args, api, extraOptions);
+            refreshResult = await baseQuery({
+                url: '/auth/refresh',
+                method: 'POST'
+            }, api, extraOptions);
+            if(
+                typeof refreshResult?.data?.message === 'string'
+                && refreshResult.data.message === 'refresh successful'
+            ){
+                api.dispatch(setToken(refreshResult.data.accessToken));
+                api.dispatch(setUserID(refreshResult.data.userID));
+                result = await baseQuery(args, api, extraOptions);
+            }
         }
     }
     return result;
