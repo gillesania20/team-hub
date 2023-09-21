@@ -58,50 +58,55 @@ const DisplaySingleTeam = () => {
         dateCreated = `${dateArray[1]} ${dateArray[2]}, ${dateArray[3]}`;
         if(typeof errorMembership?.data?.message === 'string' && errorMembership.data.message === 'membership not found'){
             hiddenControl = false;
-            control = <>
+            control = <div>
                 <button
                     type='button' onClick={handleJoinTeam} disabled={(isLoadingAddMembership === true)}
+                    className='btn btn-primary'
                 >Join team</button>
-            </>;
+            </div>;
         }else if(typeof dataMembership?.message === 'string' && dataMembership.message === 'membership found'){
             hiddenControl = false;
             if(typeof data?.leader?._id === 'string' && data.leader._id !== clientID){
-                control = <>
-                    <button type='button' onClick={handleVisitTeam}>Visit team</button>
+                control = <div className='btn-group'>
+                    <button type='button' onClick={handleVisitTeam} className='btn btn-outline-primary me-1'>Visit team</button>
                     <button
                         type='button' onClick={()=>handleLeaveTeam(dataMembership.membership._id)}
-                        disabled={(isLoadingDeleteMembership)}
+                        disabled={(isLoadingDeleteMembership)} className='btn btn-outline-danger'
                     >Leave team</button>
-                </>;
+                </div>;
             }else if(typeof data?.leader?._id === 'string' && data.leader._id === clientID){
-                control = <>
-                    <button type='button' onClick={handleVisitTeam}>Visit team</button>
-                    <button type='button' onClick={handleEditTeam}>Edit team</button>
+                control = <div className='btn-group'>
+                    <button type='button' onClick={handleVisitTeam} className='btn btn-outline-primary me-1'>Visit team</button>
+                    <button type='button' onClick={handleEditTeam} className='btn btn-outline-primary me-1'>Edit team</button>
                     <button
                         type='button' onClick={handleDeleteTeam} disabled={(isLoadingDeleteTeam === true)}
-                    >Delete team</button>
-                </>;
+                        className='btn btn-outline-danger'>Delete team</button>
+                </div>;
             }else{
                 hiddenControl = true;
                 control = <></>;
             }
         }
-        content = <div>
-            <h1>Team Info</h1>
+        content = <div className='vh-100 d-flex justify-content-center align-items-center'>
             <div>
-                <label>Name: </label>
-                <span>{data.name}</span>
-            </div>
-            <div>
-                <label>leader: </label>
-                <span>{data.leader.username}</span>
-            </div>
-            <div>
-                <label>Date created: </label>
-                <span>{dateCreated}</span>
-            </div>
-            <div hidden={(hiddenControl === true)}>
-                {control}
+                <h1 className='text-center text-primary fw-bold mb-3'>Team Info</h1>
+                <div className='form-min-width'>
+                    <div className='row mb-2'>
+                        <span className='col text-primary fw-bold'>Name: </span>
+                        <span className='col text-break'>{data.name}</span>
+                    </div>
+                    <div className='row mb-2'>
+                        <span className='col text-primary fw-bold'>Leader: </span>
+                        <span className='col text-break'>{data.leader.username}</span>
+                    </div>
+                    <div className='row mb-3'>
+                        <span className='col text-primary fw-bold'>Date created: </span>
+                        <span className='col text-break'>{dateCreated}</span>
+                    </div>
+                    <div hidden={(hiddenControl === true)} className='text-center'>
+                        {control}
+                    </div>
+                </div>
             </div>
         </div>;
     }else{

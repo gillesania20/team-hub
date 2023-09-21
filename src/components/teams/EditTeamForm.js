@@ -1,9 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { useUpdateTeamMutation } from './../../features/teams/teamApiSlice';
 import { useState } from 'react';
-const EditTeamForm = ({teamData}) => {
-    const [message, setMessage] = useState('');
+const EditTeamForm = ({teamData, messageFunc, messageColorFunc}) => {
     const [name, setName] = useState(teamData.name);
     const [updateTeam, {isLoading}] = useUpdateTeamMutation();
+    const navigate = useNavigate();
     const handleOnChange = (e) => {
         if(e.target.name === 'name'){
             setName(e.target.value);
@@ -14,30 +15,42 @@ const EditTeamForm = ({teamData}) => {
         e.preventDefault();
         let response = null;
         if(name.length <= 0){
-            setMessage('please fill-up all required fields')
+            messageFunc('please fill-up all required fields');
+            messageColorFunc('alert-danger');
         }else{
             response = await updateTeam({teamID: teamData._id, name});
             if(typeof response?.error?.data?.message === 'string'){
-                setMessage(response.error.data.message);
+                messageFunc(response.error.data.message);
+                messageColorFunc('alert-danger');
             }else if(typeof response?.data?.message === 'string' && response.data.message === 'updated team data'){
-                setMessage(response.data.message);
+                messageFunc(response.data.message);
+                messageColorFunc('alert-success');
                 setName('');
+                navigate(`/dash/teams/display-team/${teamData._id}`);
             }else{
-                setMessage('unknown error');
+                messageFunc('unknown error');
+                messageColorFunc('alert-danger');
             }
         }
         return null;
     }
+    const handleCancel = () => {
+        navigate(`/dash/teams/display-team/${teamData._id}`);
+        return null;
+    }
     return (
-        <form onSubmit={handleOnSubmit}>
-            {(message.length > 0)?<div>{message}</div>:''}
-            <div>
-                <label>Name: </label>
-                <input type='text' name='name' value={name} onChange={handleOnChange} />
+        <form onSubmit={handleOnSubmit} className='form-min-width'>
+            <div className='mb-3'>
+                <label className='form-label text-secondary'>Name: </label>
+                <input type='text' name='name' value={name} onChange={handleOnChange}
+                    className='form-control border border-primary' />
             </div>
-            <div>
-                <button type='submit' disabled={(isLoading === true)}>Update</button>
-                <button type='button' disabled={(isLoading === true)}>Cancel</button>
+            <div className='text-center'>
+                <div className='btn-group'>
+                    <button type='submit' disabled={(isLoading === true)} className='btn btn-outline-primary me-1'>Update</button>
+                    <button type='button' disabled={(isLoading === true)} onClick={handleCancel} className='btn btn-outline-secondary'
+                        >Cancel</button>
+                </div>
             </div>
         </form>
     );
