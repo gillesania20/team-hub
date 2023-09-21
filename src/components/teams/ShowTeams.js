@@ -43,21 +43,17 @@ const ShowTeams = () => {
         listOfTeams = (copiedArray.map((membership) => {
             return <div key={membership._id} onClick={()=>handleOnClick(membership.team._id)} className='bg-primary p-3 mb-1 rounded
                 text-light my-item cursor-pointer'>
-                <div className='d-flex justify-content-between mb-2'>
-                    <span className='me-2'>
-                        <span className='fw-bold'>Name: </span>
-                        <span className='text-break'>{membership.team.name}</span>
-                    </span>
-                    <span>
-                        <span className='fw-bold'>Role: </span>
-                        <span className='text-break'>{(membership.team.leader._id === clientID)?'Leader':'Member'}</span>
-                    </span>
+                <div className='row'>
+                    <span className='col fw-bold'>Name: </span>
+                    <span className='col text-break'>{membership.team.name}</span>
+                    <span className='col fw-bold'>Role: </span>
+                    <span className='col text-break'>{(membership.team.leader._id === clientID)?'Leader':'Member'}</span>
                 </div>
-                <div>
-                    <span>
-                        <span className='fw-bold'>Leader: </span>
-                        <span className='text-break'>{membership.team.leader.username}</span>
-                    </span>
+                <div className='row'>
+                    <span className='col fw-bold'>Leader: </span>
+                    <span className='col text-break'>{membership.team.leader.username}</span>
+                    <span className='col'></span>
+                    <span className='col'></span>
                 </div>
             </div>
         }));

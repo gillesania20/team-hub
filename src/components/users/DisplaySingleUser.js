@@ -23,22 +23,26 @@ const DisplaySingleUser = () => {
         date = new Date(data.birthday);
         dateArray = date.toDateString().split(" ");
         birthday = `${dateArray[1]} ${dateArray[2]}, ${dateArray[3]}`;
-        content = <div>
-            <h1>User Info</h1>
+        content = <div className='vh-100 d-flex justify-content-center align-items-center'>
             <div>
-                <label>Username: </label>
-                <span>{data.username}</span>
-            </div>
-            <div>
-                <label>Status: </label>
-                <span>{(data.active === true)?'Active':'Not Active'}</span>
-            </div>
-            <div>
-                <label>Birthday: </label>
-                <span>{birthday}</span>
-            </div>
-            <div hidden={(clientID !== userID)}>
-                <Link to={`/dash/users/edit-user/${userID}`}>Edit User</Link>
+                <h1 className='text-center text-primary fw-bold mb-3'>User Info</h1>
+                <div className='form-min-width'>
+                    <div className='row p-1'>
+                        <span className='col fw-bold text-primary'>Username: </span>
+                        <span className='col text-break'>{data.username}</span>
+                    </div>
+                    <div className='row p-1'>
+                        <span className='col fw-bold text-primary'>Status: </span>
+                        <span className='col text-break'>{(data.active === true)?'Active':'Not Active'}</span>
+                    </div>
+                    <div className='row p-1 mb-3'>
+                        <span className='col fw-bold text-primary'>Birthday: </span>
+                        <span className='col text-break'>{birthday}</span>
+                    </div>
+                    <div hidden={(clientID !== userID)} className='row p-1'>
+                        <Link to={`/dash/users/edit-user/${userID}`} className='btn btn-outline-primary'>Edit User</Link>
+                    </div>
+                </div>
             </div>
         </div>;
     }else{
