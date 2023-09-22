@@ -16,11 +16,15 @@ const TeamConversations = () => {
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof data?.message === 'string' && data.message === 'membership found'){
-        content = <div>
-            <h1>Team Conversations</h1>
-            <DisplayTeamInfo />
-            <AddPost />
-            <ShowPosts />
+        content = <div className='page-min-height d-flex justify-content-center align-items-center'>
+            <div>
+                <h1 className='text-center text-primary fw-bold mt-5 mb-3'>Team Conversations</h1>
+                <div className='my-list-width'>
+                    <DisplayTeamInfo />
+                    <AddPost />
+                    <ShowPosts />
+                </div>
+            </div>
         </div>;
     }else{
         if(typeof error?.data?.message === 'string'){

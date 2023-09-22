@@ -55,7 +55,7 @@ const SearchTeamForm = ({messageFunc, messageColorFunc}) => {
         </div>
     </form>;
     return (
-        <div>
+        <div className='my-list-width'>
             {searchForm}
             <div>
                 {teamsFound.map((team) => {

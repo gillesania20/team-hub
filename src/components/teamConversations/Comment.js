@@ -10,6 +10,9 @@ import { selectUserID } from './../../features/auth/authSlice';
 import Loader from './../loader/Loader';
 import ErrorWithMessage from './../errors/ErrorWithMessage';
 import DefaultError from './../errors/DefaultError';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp as faThumbsUpReg, faThumbsDown as faThumbsDownReg } from '@fortawesome/free-regular-svg-icons';
 const Comment = ({showOptions, showOptionsFunc, commentID, userID, created_at, username, commentBody, likes, dislikes}) => {
     const { teamID } = useParams();
     const clientID = useSelector(selectUserID);
@@ -23,8 +26,11 @@ const Comment = ({showOptions, showOptionsFunc, commentID, userID, created_at, u
     const navigate = useNavigate();
     let content = <></>;
     let teamRole = null;
+    let teamRoleColor = '';
     let commentVoteID = null;
     let buttonSection = <></>;
+    let dateArray = null;
+    let date = null;
     const handleOptions = () => {
         if(showOptions === commentID){
             showOptionsFunc('');
@@ -63,10 +69,14 @@ const Comment = ({showOptions, showOptionsFunc, commentID, userID, created_at, u
         (typeof data?.message === 'string' && data.message === 'membership found')
         ||(typeof error?.data?.message === 'string' && error.data.message === 'membership not found')
     ){
+        dateArray = new Date(created_at).toDateString().split(' ');
+        date = `${dateArray[1]} ${dateArray[2]}, ${dateArray[3]}`;
         if(typeof data?.message === 'string' && data.message === 'membership found'){
             teamRole = MEMBER;
+            teamRoleColor = 'text-success';
         }else if(typeof error?.data?.message === 'string' && error.data.message === 'membership not found'){
             teamRole = NOT_MEMBER;
+            teamRoleColor = 'text-danger';
         }
         if(
             (typeof dataCommentVote?.message === 'string' && dataCommentVote.message === 'comment-vote found')
@@ -74,70 +84,88 @@ const Comment = ({showOptions, showOptionsFunc, commentID, userID, created_at, u
         ){
             if(dataCommentVote.commentVote.vote === 1){
                 commentVoteID = dataCommentVote.commentVote._id;
-                buttonSection = <>
+                buttonSection = <div className='btn-group w-100'>
                     <button
-                        type='button' onClick={()=>handleUndoLike(commentVoteID)} disabled={(isLoadingDeleteCommentVote === true)}
-                    >undo like</button>
+                        type='button' title='Unlike Comment' onClick={()=>handleUndoLike(commentVoteID)}
+                        disabled={(isLoadingDeleteCommentVote === true)} className='btn btn-info btn-lg text-primary'
+                    ><FontAwesomeIcon icon={faThumbsUp} /></button>
                     <button
-                        type='button' onClick={handleDislike} disabled={(isLoadingAddOrUpdateCommentVote === true)}
-                    >dislike</button>
-                </>;
+                        type='button' title='Dislike Comment' onClick={handleDislike}
+                        disabled={(isLoadingAddOrUpdateCommentVote === true)} className='btn btn-info btn-lg text-primary'
+                    ><FontAwesomeIcon icon={faThumbsDownReg} /></button>
+                </div>;
             }else if(dataCommentVote.commentVote.vote === -1){
                 commentVoteID = dataCommentVote.commentVote._id;
-                buttonSection = <>
+                buttonSection = <div className='btn-group w-100'>
                     <button
-                        type='button' onClick={handleLike} disabled={(isLoadingAddOrUpdateCommentVote === true)}
-                    >like</button>
+                        type='button' title='Like Comment' onClick={handleLike} disabled={(isLoadingAddOrUpdateCommentVote === true)}
+                        className='btn btn-info btn-lg text-primary'
+                    ><FontAwesomeIcon icon={faThumbsUpReg} /></button>
                     <button
-                        type='button' onClick={()=>handleUndoDislike(commentVoteID)} disabled={(isLoadingDeleteCommentVote === true)}
-                    >undo dislike</button>
-                </>;
+                        type='button' title='Undislike Comment' onClick={()=>handleUndoDislike(commentVoteID)}
+                        disabled={(isLoadingDeleteCommentVote === true)} className='btn btn-info btn-lg text-primary'
+                    ><FontAwesomeIcon icon={faThumbsDown} /></button>
+                </div>;
             }else{
                 buttonSection = <></>;
             }
         }else if(typeof dataCommentVote?.message === 'string' && dataCommentVote.message === 'comment-vote not found'){
-            buttonSection = <>
+            buttonSection = <div className='btn-group w-100'>
                 <button
-                    type='button' onClick={handleLike} disabled={(isLoadingAddOrUpdateCommentVote === true)}
-                >like</button>
+                    type='button' title='Like Comment' onClick={handleLike} disabled={(isLoadingAddOrUpdateCommentVote === true)}
+                    className='btn btn-info btn-lg text-primary'
+                ><FontAwesomeIcon icon={faThumbsUpReg} /></button>
                 <button
-                    type='button' onClick={handleDislike} disabled={(isLoadingAddOrUpdateCommentVote === true)}
-                >dislike</button>
-            </>;
+                    type='button' title='Dislike Comment' onClick={handleDislike} disabled={(isLoadingAddOrUpdateCommentVote === true)}
+                    className='btn btn-info btn-lg text-primary'
+                ><FontAwesomeIcon icon={faThumbsDownReg} /></button>
+            </div>;
         }
-        content = <div>
+        content = <div className='bg-info'>
             <div hidden={(clientID !== userID)}>
+                <div className='text-end'>
+                    <div>
+                        <button type='button' title='Comment Options' onClick={handleOptions} className='btn btn-info btn-sm
+                            text-primary'>...</button>
+                    </div>
+                    <div hidden={(showOptions !== commentID)}>
+                        <div>
+                            <button type='button' title='Edit Comment' onClick={handleEdit} className='btn btn-info btn-sm
+                                text-primary'><FontAwesomeIcon icon={faPen} /></button>
+                        </div>
+                        <div>
+                            <button
+                                type='button' title='Delete Comment' onClick={handleDelete} disabled={(isLoadingDeleteComment === true)}
+                                className='btn btn-info btn-sm text-primary'
+                            ><FontAwesomeIcon icon={faTrash} /></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='py-3 px-2'>
+                <div className='d-flex justify-content-between'>
+                    <span>
+                        <span className='me-3 fw-bold text-break'>{username}</span>
+                        <span className={`${teamRoleColor}`}>{teamRole}</span>
+                    </span>
+                    <span className='text-secondary'>{date}</span>
+                </div>
+                <div className='py-3 px-1 text-break'>
+                    {commentBody}
+                </div>
+                <div className='text-primary mb-2'>
+                    <span className='me-2'>
+                        <span className='me-1'><FontAwesomeIcon icon={faThumbsUp} /></span>
+                        <span>{likes}</span>
+                    </span>
+                    <span>
+                        <span className='me-1'><FontAwesomeIcon icon={faThumbsDown} /></span>
+                        <span>{dislikes}</span>
+                    </span>
+                </div>
                 <div>
-                    <button type='button' onClick={handleOptions}>...</button>
+                    {buttonSection}
                 </div>
-                <div hidden={(showOptions !== commentID)}>
-                    <div>
-                        <button type='button' onClick={handleEdit}>Edit</button>
-                    </div>
-                    <div>
-                        <button
-                            type='button' onClick={handleDelete} disabled={(isLoadingDeleteComment === true)}
-                        >Delete</button>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <span>{username}</span><span>{teamRole}</span>
-                <span>{created_at}</span>
-            </div>
-            <div>
-                {commentBody}
-            </div>
-            <div>
-                <span>
-                    <span>likes: </span><span>{likes}</span>
-                </span>
-                <span>
-                    <span>dislikes: </span><span>{dislikes}</span>
-                </span>
-            </div>
-            <div>
-                {buttonSection}
             </div>
         </div>;
     }else{

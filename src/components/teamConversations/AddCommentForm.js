@@ -28,12 +28,14 @@ const AddCommentForm = ({postID}) => {
         return null;
     }
     return (
-        <form onSubmit={handleOnSubmit}>
-            <div>
-                <textarea name='body' value={body} onChange={handleOnChange}></textarea>
+        <form onSubmit={handleOnSubmit} className='p-1 bg-info rounded-bottom'>
+            <div className='mb-1'>
+                <textarea name='body' value={body} onChange={handleOnChange} placeholder='Put your new comment here...'
+                    rows='5' className='form-control resize-none border border-primary'></textarea>
             </div>
-            <div>
-                <button type='submit' disabled={(isLoading === true)}>submit comment</button>
+            <div className='text-end'>
+                <button type='submit' title='Add New Comment' disabled={(isLoading === true)} className='btn
+                    btn-outline-primary'>Comment</button>
             </div>
         </form>
     );

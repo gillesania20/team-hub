@@ -11,7 +11,7 @@ const SearchTeam = () => {
             {(message.length > 0)?
             <AlertMessage message={message} messageColor={messageColor} messageFunc={(input)=>setMessage(input)} />
             :''}
-            <div className='vh-100 d-flex justify-content-center align-items-center'>
+            <div className='page-min-height d-flex justify-content-center align-items-center'>
                 <div>
                     <h1 className='text-center mb-3 text-primary fw-bold'>Search Team</h1>
                     <SearchTeamForm messageFunc={(input)=>setMessage(input)} messageColorFunc={(input)=>setMessageColor(input)} />

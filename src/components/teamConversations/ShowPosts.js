@@ -22,7 +22,7 @@ const ShowPosts = () => {
         && (typeof data.posts !== 'undefined' && data.posts !== null)
     ){
         listOfPosts = data.posts.map((post) => {
-            return <div key={post._id}>
+            return <div key={post._id} className='shadow rounded mb-3'>
                 <Post
                     showOptions={showOptions}
                     showOptionsFunc={(post_id)=>setShowOptions(post_id)}

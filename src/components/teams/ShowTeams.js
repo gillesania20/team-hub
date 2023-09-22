@@ -58,10 +58,10 @@ const ShowTeams = () => {
             </div>
         }));
         teamNotFound = <div>You're not a member of a team yet.</div>;
-        content = <div className='vh-100 d-flex justify-content-center align-items-center'>
+        content = <div className='page-min-height d-flex justify-content-center align-items-center'>
             <div>
                 <h1 className='text-center text-primary mb-4 fw-bold'>Show Teams</h1>
-                <div>
+                <div className='my-list-width'>
                     {(data.memberships.length > 0)?
                         listOfTeams
                         :teamNotFound}

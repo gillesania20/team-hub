@@ -21,13 +21,18 @@ const DisplayTeamInfo = () => {
         }else{
             role = 'member'
         }
-        content = <div>
-            <div>
-                <span>team name: {data.name}</span>
-                <span>role: {role}</span>
+        content = <div className='mb-3 shadow py-3 px-1 rounded'>
+            <div className='row'>
+                <span className='col text-primary fw-bold'>team name:</span>
+                <span className='col text-break'>{data.name}</span>
+                <span className='col text-primary fw-bold'>role:</span>
+                <span className='col text-break'>{role}</span>
             </div>
-            <div>
-                <span>leader: {data?.leader?.username}</span>
+            <div className='row'>
+                <span className='col text-primary fw-bold'>leader:</span>
+                <span className='col text-break'>{data?.leader?.username}</span>
+                <span className='col'></span>
+                <span className='col'></span>
             </div>
         </div>;
     }else{

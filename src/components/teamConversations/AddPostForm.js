@@ -28,12 +28,14 @@ const AddPostForm = () => {
         return null;
     }
     return (
-        <form onSubmit={handleOnSubmit}>
-            <div>
-                <textarea name='body' value={body} onChange={handleOnChange}></textarea>
+        <form onSubmit={handleOnSubmit} className='p-1 rounded shadow mb-3'>
+            <div className='mb-1'>
+                <textarea name='body' value={body} onChange={handleOnChange} placeholder='Put your new post here...'
+                    rows='5' className='form-control resize-none border border-primary'></textarea>
             </div>
-            <div>
-                <button type='submit' disabled={(isLoading === true)}>Post</button>
+            <div className='text-end'>
+                <button type='submit' title='Add New Post' disabled={(isLoading === true)} className='btn 
+                    btn-outline-primary'>Post</button>
             </div>
         </form>
     );
