@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useGetAllPostsQuery } from './../../features/posts/postApiSlice';
 import ShowComments from './ShowComments';
 import AddComment from './AddComment';
-import Loader from './../loader/Loader';
+import Loader from './../loader/smallLoader/Loader';
 import Post from './Post';
-import ErrorWithMessage from './../errors/ErrorWithMessage';
-import DefaultError from './../errors/DefaultError';
+import ErrorWithMessage from './../errors/smallErrors/ErrorWithMessage';
+import DefaultError from './../errors/smallErrors/DefaultError';
 const ShowPosts = () => {
     const { teamID } = useParams();
     const [showOptions, setShowOptions] = useState('');

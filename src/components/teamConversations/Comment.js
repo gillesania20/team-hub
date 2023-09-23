@@ -7,9 +7,9 @@ import {
     useAddOrUpdateCommentVoteMutation, useGetCommentVoteQuery, useDeleteCommentVoteMutation
 } from './../../features/commentVotes/commentVoteApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
-import Loader from './../loader/Loader';
-import ErrorWithMessage from './../errors/ErrorWithMessage';
-import DefaultError from './../errors/DefaultError';
+import Loader from './../loader/smallLoader/Loader';
+import ErrorWithMessage from './../errors/smallErrors/ErrorWithMessage';
+import DefaultError from './../errors/smallErrors/DefaultError';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp as faThumbsUpReg, faThumbsDown as faThumbsDownReg } from '@fortawesome/free-regular-svg-icons';

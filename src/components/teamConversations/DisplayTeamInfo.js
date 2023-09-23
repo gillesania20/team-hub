@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useGetTeamQuery } from './../../features/teams/teamApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
-import Loader from './../loader/Loader';
-import ErrorWithMessage from './../errors/ErrorWithMessage';
-import DefaultError from './../errors/DefaultError';
+import Loader from './../loader/smallLoader/Loader';
+import ErrorWithMessage from './../errors/smallErrors/ErrorWithMessage';
+import DefaultError from './../errors/smallErrors/DefaultError';
 const DisplayTeamInfo = () => {
     const { teamID } = useParams();
     const clientID = useSelector(selectUserID);

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useGetAllCommentsQuery } from './../../features/comments/commentApiSlice';
-import Loader from './../loader/Loader';
+import Loader from './../loader/smallLoader/Loader';
 import Comment from './Comment';
-import ErrorWithMessage from './../errors/ErrorWithMessage';
-import DefaultError from './../errors/DefaultError';
+import ErrorWithMessage from './../errors/smallErrors/ErrorWithMessage';
+import DefaultError from './../errors/smallErrors/DefaultError';
 const ShowComments = ({postID}) => {
     const [showOptions, setShowOptions] = useState('');
     const { data, isLoading, error } = useGetAllCommentsQuery({postID});
