@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 const LoginFirst = () => {
     return (
-        <div>
-            <div>
-                Please login first.
-            </div>
-            <div>
-                <Link to='/login'>Login</Link>
+        <div className='vh-100 d-flex justify-content-center align-items-center'>
+            <div className='text-center fw-bold'>
+                <div className='mb-2'>
+                    Please login first.
+                </div>
+                <div>
+                    <Link to='/login' className='text-decoration-none'>Login</Link>
+                </div>
             </div>
         </div>
     );
