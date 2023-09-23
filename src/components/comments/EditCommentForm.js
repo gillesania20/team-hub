@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useUpdateCommentMutation } from './../../features/comments/commentApiSlice';
-const EditCommentForm = ({commentData}) => {
+const EditCommentForm = ({commentData, messageFunc, messageColorFunc}) => {
     const { teamID } = useParams();
-    const [message, setMessage] = useState('');
     const [body, setBody] = useState(commentData.body);
     const [updateComment, {isLoading}] = useUpdateCommentMutation();
     const navigate = useNavigate();
@@ -17,13 +16,16 @@ const EditCommentForm = ({commentData}) => {
         e.preventDefault();
         const response = await updateComment({commentID: commentData._id, body});
         if(typeof response?.error?.data?.message === 'string'){
-            setMessage(response.error.data.message);
+            messageFunc(response.error.data.message);
+            messageColorFunc('alert-danger');
         }else if(typeof response?.data?.message === 'string' && response.data.message === 'updated comment data'){
-            setMessage(response.data.message);
+            messageFunc(response.data.message);
+            messageColorFunc('alert-success');
             setBody('');
             navigate(`/dash/team-conversations/${teamID}`);
         }else{
-            setMessage('unknown error');
+            messageFunc('unknown error');
+            messageColorFunc('alert-danger');
         }
         return null;
     }
@@ -32,15 +34,17 @@ const EditCommentForm = ({commentData}) => {
         return null;
     }
     return (
-        <form onSubmit={handleOnSubmit}>
-            {(message.length > 0)?<div>{message}</div>:''}
-            <div>
-                <label>Body: </label>
-                <textarea name='body' value={body} onChange={handleOnChange}></textarea>
+        <form onSubmit={handleOnSubmit} className='my-list-width'>
+            <div className='mb-3'>
+                <label htmlFor='body' className='form-label text-secondary cursor-pointer'>Body: </label>
+                <textarea name='body' value={body} onChange={handleOnChange} rows='5' id='body' className='form-control border
+                    border-primary resize-none'></textarea>
             </div>
-            <div>
-                <button type='submit' disabled={(isLoading === true)}>Update</button>
-                <button type='button' onClick={handleCancel}>Cancel</button>
+            <div className='text-center'>
+                <div className='btn-group'>
+                    <button type='submit' disabled={(isLoading === true)} className='btn btn-outline-primary me-1'>Update</button>
+                    <button type='button' onClick={handleCancel} className='btn btn-outline-secondary'>Cancel</button>
+                </div>
             </div>
         </form>
     );
