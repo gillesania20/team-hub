@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useTitle from './../../hooks/useTitle';
 import { useGetUserQuery } from './../../features/users/userApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
@@ -16,6 +16,7 @@ const EditUser = () => {
     const [message, setMessage] = useState('');
     const [messageColor, setMessageColor] = useState('');
     const { data, isLoading, error } = useGetUserQuery({userID});
+    const navigate = useNavigate();
     let content = <></>;
     useTitle('edit-user', 'Edit User');
     if(isLoading === true){
@@ -23,7 +24,11 @@ const EditUser = () => {
     }else if(clientID !== userID){
         content = <NotAuthorized />;
     }else if(typeof error?.data?.message === 'string'){
-        content = <ErrorWithMessage message={error.data.message} />;
+        if(error.data.message === 'jwt expired'){
+            navigate('/login');
+        }else{
+            content = <ErrorWithMessage message={error.data.message} />;
+        }
     }else if(typeof data !== 'undefined'){
         content = <div>
             {(message.length > 0)?

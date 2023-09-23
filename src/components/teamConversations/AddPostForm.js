@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAddPostMutation } from './../../features/posts/postApiSlice';
 const AddPostForm = () => {
     const { teamID } = useParams();
     const [body, setBody] = useState('');
     const [addPost, {isLoading}] = useAddPostMutation();
+    const navigate = useNavigate();
     const handleOnChange = (e) => {
         if(e.target.name === 'body'){
             setBody(e.target.value);
@@ -18,6 +19,9 @@ const AddPostForm = () => {
             response = await addPost({teamID, body});
             if(typeof response?.error?.data?.message === 'string'){
                 //error with message
+                if(response.error.data.message === 'jwt expired'){
+                    navigate('/login');
+                }
             }else if(typeof response?.data?.message === 'string' && response.data.message === 'post created'){
                 setBody('');
                 //successfully created post

@@ -20,8 +20,12 @@ const EditTeamForm = ({teamData, messageFunc, messageColorFunc}) => {
         }else{
             response = await updateTeam({teamID: teamData._id, name});
             if(typeof response?.error?.data?.message === 'string'){
-                messageFunc(response.error.data.message);
-                messageColorFunc('alert-danger');
+                if(response.error.data.message === 'jwt expired'){
+                    navigate('/login');
+                }else{
+                    messageFunc(response.error.data.message);
+                    messageColorFunc('alert-danger');
+                }
             }else if(typeof response?.data?.message === 'string' && response.data.message === 'updated team data'){
                 messageFunc(response.data.message);
                 messageColorFunc('alert-success');

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useGetAllPostsQuery } from './../../features/posts/postApiSlice';
 import ShowComments from './ShowComments';
 import AddComment from './AddComment';
@@ -11,12 +11,17 @@ const ShowPosts = () => {
     const { teamID } = useParams();
     const [showOptions, setShowOptions] = useState('');
     const { data, isLoading, error } = useGetAllPostsQuery({teamID});
+    const navigate = useNavigate();
     let content = <></>;
     let listOfPosts = null;
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){
-        content = <ErrorWithMessage message={error.data.message} />;
+        if(error.data.message === 'jwt expired'){
+            navigate('/login');
+        }else{
+            content = <ErrorWithMessage message={error.data.message} />;
+        }
     }else if(
         (typeof data?.message === 'string' && data.message === 'posts found')
         && (typeof data.posts !== 'undefined' && data.posts !== null)

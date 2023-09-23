@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAddTeamMutation } from './../../features/teams/teamApiSlice';
 const CreateTeamForm = ({messageFunc, messageColorFunc}) => {
     const [name, setName] = useState('');
     const [addTeam, {isLoading}] = useAddTeamMutation();
+    const navigate = useNavigate();
     const handleOnChange = (e) => {
         if(e.target.name === 'name'){
             setName(e.target.value);
@@ -18,8 +20,12 @@ const CreateTeamForm = ({messageFunc, messageColorFunc}) => {
         }else{
             response = await addTeam({name});
             if(typeof response?.error?.data?.message === 'string'){
-                messageFunc(response.error.data.message);
-                messageColorFunc('alert-danger');
+                if(response.error.data.message === 'jwt expired'){
+                    navigate('/login');
+                }else{
+                    messageFunc(response.error.data.message);
+                    messageColorFunc('alert-danger');
+                }
             }else if(typeof response?.data?.message === 'string' && response.data.message === 'team created'){
                 messageFunc(response.data.message);
                 messageColorFunc('alert-success');

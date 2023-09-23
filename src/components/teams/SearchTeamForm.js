@@ -18,9 +18,13 @@ const SearchTeamForm = ({messageFunc, messageColorFunc}) => {
         e.preventDefault();
         const response = await searchTeam({teamName});
         if(typeof response?.error?.data?.message === 'string'){
-            messageFunc(response.error.data.message);
-            messageColorFunc('alert-danger');
-            setTeamsFound([]);
+            if(response.error.data.message === 'jwt expired'){
+                navigate('/login');
+            }else{
+                messageFunc(response.error.data.message);
+                messageColorFunc('alert-danger');
+                setTeamsFound([]);
+            }
         }else if(
             typeof response?.data?.message === 'string' && response.data.message === 'teams found'
             && typeof response?.data?.teams !== 'undefined' && response.data.teams !== null

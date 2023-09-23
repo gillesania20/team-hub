@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useTitle from './../../hooks/useTitle';
 import { useGetMembershipQuery } from './../../features/memberships/membershipApiSlice';
 import DisplayTeamInfo from './DisplayTeamInfo';
@@ -11,6 +11,7 @@ import NotAuthorized from './../errors/NotAuthorized';
 const TeamConversations = () => {
     const { teamID } = useParams();
     const { data, isLoading, error } = useGetMembershipQuery({teamID});
+    const navigate = useNavigate();
     let content = <></>;
     useTitle('team-conversations', 'Team Conversations');
     if(isLoading === true){
@@ -28,7 +29,9 @@ const TeamConversations = () => {
         </div>;
     }else{
         if(typeof error?.data?.message === 'string'){
-            if(error.data.message === 'membership not found'){
+            if(error.data.message === 'jwt expired'){
+                navigate('/login');
+            }else if(error.data.message === 'membership not found'){
                 content = <NotAuthorized />;
             }else{
                 content = <ErrorWithMessage message={error.data.message} />;

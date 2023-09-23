@@ -16,8 +16,12 @@ const EditCommentForm = ({commentData, messageFunc, messageColorFunc}) => {
         e.preventDefault();
         const response = await updateComment({commentID: commentData._id, body});
         if(typeof response?.error?.data?.message === 'string'){
-            messageFunc(response.error.data.message);
-            messageColorFunc('alert-danger');
+            if(response.error.data.message === 'jwt expired'){
+                navigate('/login');
+            }else{
+                messageFunc(response.error.data.message);
+                messageColorFunc('alert-danger');
+            }
         }else if(typeof response?.data?.message === 'string' && response.data.message === 'updated comment data'){
             messageFunc(response.data.message);
             messageColorFunc('alert-success');

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import useTitle from './../../hooks/useTitle';
 import { useGetUserQuery } from './../../features/users/userApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
@@ -9,7 +9,8 @@ import DefaultError from './../errors/DefaultError';
 const DisplaySingleUser = () => {
     const clientID = useSelector(selectUserID);
     const { userID } = useParams();
-    const { data, isLoading, error } = useGetUserQuery({userID})
+    const { data, isLoading, error } = useGetUserQuery({userID});
+    const navigate = useNavigate();
     let date = null;
     let dateArray = null;
     let birthday = null;
@@ -18,7 +19,11 @@ const DisplaySingleUser = () => {
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){
-        content = <ErrorWithMessage message={error.data.message} />;
+        if(error.data.message === 'jwt expired'){
+            navigate('/login');
+        }else{
+            content = <ErrorWithMessage message={error.data.message} />;
+        }
     }else if(typeof data !== 'undefined'){
         date = new Date(data.birthday);
         dateArray = date.toDateString().split(" ");

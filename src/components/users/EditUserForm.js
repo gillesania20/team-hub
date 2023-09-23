@@ -48,8 +48,12 @@ const EditUserForm = ({userData, messageFunc, messageColorFunc}) => {
                 response = await updateUser({userID: userData._id, birthday});
             }
             if(typeof response?.error?.data?.message === 'string'){
-                messageFunc(response.error.data.message);
-                messageColorFunc('alert-danger');
+                if(response.error.data.message === 'jwt expired'){
+                    navigate('/login');
+                }else{
+                    messageFunc(response.error.data.message);
+                    messageColorFunc('alert-danger');
+                }
             }else if(typeof response?.data?.message === 'string' && response.data.message === 'updated user data'){
                 messageFunc(response.data.message);
                 messageColorFunc('alert-success');

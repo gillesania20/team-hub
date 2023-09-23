@@ -33,7 +33,11 @@ const ShowTeams = () => {
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){
-        content = <ErrorWithMessage message={error.data.message} />;
+        if(error.data.message === 'jwt expired'){
+            navigate('/login');
+        }else{
+            content = <ErrorWithMessage message={error.data.message} />;
+        }
     }else if(
         (typeof data?.message === 'string' && data.message === 'memberships found')
         && (typeof data?.memberships !== 'undefined' && data.memberships !== null)

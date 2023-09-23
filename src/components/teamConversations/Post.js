@@ -63,6 +63,8 @@ const Post = ({showOptions, showOptionsFunc, postID, userID, created_at, usernam
     }
     if(isLoading === true || isLoadingPostVote === true){
         content = <Loader />;
+    }else if(typeof error?.data?.message === 'string' && error.data.message === 'jwt expired'){
+        navigate('/login');
     }else if(
         (typeof data?.message === 'string' && data.message === 'membership found')
         ||(typeof error?.data?.message === 'string' && error.data.message === 'membership not found')
@@ -169,7 +171,11 @@ const Post = ({showOptions, showOptionsFunc, postID, userID, created_at, usernam
         if(typeof error?.data?.message === 'string'){
             content = <ErrorWithMessage message={error.data.message} />;
         }else if(typeof errorPostVote?.data?.message === 'string'){
-            content = <ErrorWithMessage message={errorPostVote.data.message} />;
+            if(errorPostVote.data.message === 'jwt expired'){
+                navigate('/login');
+            }else{
+                content = <ErrorWithMessage message={errorPostVote.data.message} />;
+            }
         }else{
             content = <DefaultError />;
         }

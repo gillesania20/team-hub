@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useGetTeamQuery } from './../../features/teams/teamApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
 import Loader from './../loader/smallLoader/Loader';
@@ -9,12 +9,17 @@ const DisplayTeamInfo = () => {
     const { teamID } = useParams();
     const clientID = useSelector(selectUserID);
     const { data, isLoading, error } = useGetTeamQuery({teamID});
+    const navigate = useNavigate();
     let content = <></>;
     let role = null;
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){
-        content = <ErrorWithMessage message={error.data.message} />;
+        if(error.data.message === 'jwt expired'){
+            navigate('/login');
+        }else{
+            content = <ErrorWithMessage message={error.data.message} />;
+        }
     }else if(typeof data !== 'undefined'){
         if(typeof data?.leader?._id !== 'undefined' && data.leader._id === clientID){
             role = 'leader'

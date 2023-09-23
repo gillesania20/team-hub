@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useTitle from './../../hooks/useTitle';
 import { useGetTeamQuery } from './../../features/teams/teamApiSlice';
 import { selectUserID } from './../../features/auth/authSlice';
@@ -16,12 +16,17 @@ const EditTeam = () => {
     const [message, setMessage] = useState('');
     const [messageColor, setMessageColor] = useState('');
     const { data, isLoading, error } = useGetTeamQuery({teamID});
+    const navigate = useNavigate();
     let content = null;
     useTitle('edit-team', 'Edit Team');
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){
-        content = <ErrorWithMessage message={error.data.message} />;
+        if(error.data.message === 'jwt expired'){
+            navigate('/login');
+        }else{
+            content = <ErrorWithMessage message={error.data.message} />;
+        }
     }else if(typeof data !== 'undefined'){
         if(data.leader._id !== clientID){
             content = <NotAuthorized />;

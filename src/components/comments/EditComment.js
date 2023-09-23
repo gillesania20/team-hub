@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useTitle from './../../hooks/useTitle';
 import { useGetCommentQuery } from './../../features/comments/commentApiSlice';
 import EditCommentForm from './EditCommentForm';
@@ -12,12 +12,17 @@ const EditComment = () => {
     const [message, setMessage] = useState('');
     const [messageColor, setMessageColor] = useState('');
     const { data, isLoading, error } = useGetCommentQuery({commentID});
+    const navigate = useNavigate();
     let content = <></>;
     useTitle('edit-comment', 'Edit Comment');
     if(isLoading === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){
-        content = <ErrorWithMessage message={error.data.message} />;
+        if(error.data.message === 'jwt expired'){
+            navigate('/login');
+        }else{
+            content = <ErrorWithMessage message={error.data.message} />;
+        }
     }else if(typeof data?.message == 'string' && data.message === 'comment found'){
         content = <div>
             {(message.length > 0)?

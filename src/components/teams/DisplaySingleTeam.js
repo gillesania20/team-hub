@@ -52,11 +52,17 @@ const DisplaySingleTeam = () => {
     if(isLoading === true || isLoadingMembership === true){
         content = <Loader />;
     }else if(typeof error?.data?.message === 'string'){
-        content = <ErrorWithMessage message={error.data.message} />;
+        if(error.data.message === 'jwt expired'){
+            navigate('/login');
+        }else{
+            content = <ErrorWithMessage message={error.data.message} />;
+        }
     }else if(typeof data !== 'undefined'){
         dateArray = new Date(data.created_at).toDateString().split(' ');
         dateCreated = `${dateArray[1]} ${dateArray[2]}, ${dateArray[3]}`;
-        if(typeof errorMembership?.data?.message === 'string' && errorMembership.data.message === 'membership not found'){
+        if(typeof errorMembership?.data?.message === 'string' && errorMembership.data.message === 'jwt expired'){
+            navigate('/login');
+        }else if(typeof errorMembership?.data?.message === 'string' && errorMembership.data.message === 'membership not found'){
             hiddenControl = false;
             control = <div>
                 <button

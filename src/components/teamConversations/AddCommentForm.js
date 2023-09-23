@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAddCommentMutation } from './../../features/comments/commentApiSlice';
 const AddCommentForm = ({postID}) => {
     const { teamID } = useParams();
     const [body, setBody] = useState('');
     const [addComment, {isLoading}] = useAddCommentMutation();
+    const navigate = useNavigate();
     const handleOnChange = (e) => {
         if(e.target.name === 'body'){
             setBody(e.target.value);
@@ -18,6 +19,9 @@ const AddCommentForm = ({postID}) => {
             response = await addComment({teamID, postID, body});
             if(typeof response?.error?.data?.message === 'string'){
                 //error with message
+                if(response.error.data.message === 'jwt expired'){
+                    navigate('/login');
+                }
             }else if(typeof response?.data?.message === 'string' && response.data.message === 'comment created'){
                 setBody('');
                 //successfully created comment

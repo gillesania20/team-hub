@@ -65,6 +65,8 @@ const Comment = ({showOptions, showOptionsFunc, commentID, userID, created_at, u
     }
     if(isLoading === true || isLoadingCommentVote === true){
         content = <Loader />;
+    }else if(typeof error?.data?.message === 'string' && error.data.message === 'jwt expired'){
+        navigate('/login');
     }else if(
         (typeof data?.message === 'string' && data.message === 'membership found')
         ||(typeof error?.data?.message === 'string' && error.data.message === 'membership not found')
@@ -172,7 +174,11 @@ const Comment = ({showOptions, showOptionsFunc, commentID, userID, created_at, u
         if(typeof error?.data?.message === 'string'){
             content = <ErrorWithMessage message={error.data.message} />;
         }else if(typeof errorCommentVote?.data?.message === 'string'){
-            content = <ErrorWithMessage message={errorCommentVote.data.message} />;
+            if(errorCommentVote.data.message === 'jwt expired'){
+                navigate('/login');
+            }else{
+                content = <ErrorWithMessage message={errorCommentVote.data.message} />;
+            }
         }else{
             content = <DefaultError />;
         }
