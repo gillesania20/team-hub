@@ -1,0 +1,62 @@
+// custom variables
+$primary: #0B6623;
+$info: #D9DDDC;
+
+// import bootstrap
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+* {
+margin: 0;
+padding: 0;
+font-family: 'Roboto', sans-serif;
+font-size: 16px;
+letter-spacing: .05em;
+}
+
+form label {
+font-size: .8em;
+}
+
+.form-min-width {
+min-width: 300px;
+}
+
+.my-list-width {
+width: 500px;
+}
+
+.page-min-height {
+min-height: 100vh;
+}
+
+.cursor-pointer {
+cursor: pointer;
+}
+
+.social-media-icons {
+font-size: 25px;
+}
+
+.my-item {
+transition-duration: .4s;
+}
+
+.my-item:hover {
+transform: scale(1.1);
+}
+
+.resize-none {
+resize: none;
+}
+
+@media only screen and (max-width: 600px) {
+.my-list-width {
+    width: 100vw;
+}
+}
+
+@media only screen and (max-width: 400px) {
+.form-min-width {
+    min-width: 100vw;
+}
+}
