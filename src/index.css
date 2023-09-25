@@ -11903,6 +11903,9 @@ form label {
   .my-list-width {
     width: 100%;
   }
+  .my-item:hover {
+    transform: scale(1, 1.1);
+  }
   .width-when-600-screen {
     width: 100%;
   }
