@@ -39,7 +39,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 const api = createApi({
     reducerPath: 'api',
     baseQuery: baseQueryWithReauth,
-    //refetchOnFocus: true,
+    refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
     tagTypes: ['Posts', 'Comments', 'PostVote', 'CommentVote'],
     endpoints: (builder) => ({})
