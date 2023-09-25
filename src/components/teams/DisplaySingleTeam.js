@@ -94,7 +94,7 @@ const DisplaySingleTeam = () => {
             }
         }
         content = <div className='vh-100 d-flex justify-content-center align-items-center'>
-            <div>
+            <div className='width-when-400-screen'>
                 <h1 className='text-center text-primary fw-bold mb-3'>Team Info</h1>
                 <div className='form-min-width'>
                     <div className='row mb-2'>

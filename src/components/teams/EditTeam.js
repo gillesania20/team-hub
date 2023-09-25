@@ -36,7 +36,7 @@ const EditTeam = () => {
                     <AlertMessage message={message} messageColor={messageColor} messageFunc={(input)=>setMessage(input)} />
                     :''}
                 <div className='vh-100 d-flex justify-content-center align-items-center'>
-                    <div>
+                    <div className='width-when-400-screen'>
                         <h1 className='text-center text-primary fw-bold mb-3'>Edit Team</h1>
                         <EditTeamForm teamData={data} messageFunc={(input)=>setMessage(input)}
                             messageColorFunc={(input)=>setMessageColor(input)} />
