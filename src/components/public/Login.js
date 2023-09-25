@@ -12,7 +12,7 @@ const Login = () => {
             <AlertMessage message={message} messageColor={messageColor} messageFunc={(input)=>setMessage(input)}/>
             :''}
             <div className='min-vh-100 d-flex justify-content-center align-items-center'>
-                <div className='shadow-lg py-5 px-3 rounded'>
+                <div className='shadow-lg py-5 px-3 rounded width-when-400-screen'>
                     <h1 className='text-primary text-center mb-3 fw-bold'>Login</h1>
                     <LoginForm messageFunc={(input)=>setMessage(input)} messageColorFunc={(input)=>setMessageColor(input)} />
                 </div>

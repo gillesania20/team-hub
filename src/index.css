@@ -11908,6 +11908,9 @@ form label {
   .form-min-width {
     width: 100%;
   }
+  .width-when-400-screen {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */
