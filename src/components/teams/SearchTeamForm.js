@@ -64,7 +64,7 @@ const SearchTeamForm = ({messageFunc, messageColorFunc}) => {
             <div>
                 {teamsFound.map((team) => {
                     return <div key={team._id} onClick={()=>handleOnClick(team._id)} className='bg-primary p-3 mb-1 rounded text-light
-                        my-item cursor-pointer row'>
+                        my-item cursor-pointer row w-100'>
                         <span className='col text-break'>{team.name}</span>
                         <span className='col text-break'text-break>{team.leader.username}</span>
                     </div>
