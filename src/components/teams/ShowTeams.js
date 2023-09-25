@@ -47,13 +47,13 @@ const ShowTeams = () => {
         listOfTeams = (copiedArray.map((membership) => {
             return <div key={membership._id} onClick={()=>handleOnClick(membership.team._id)} className='bg-primary p-3 mb-1 rounded
                 text-light my-item cursor-pointer'>
-                <div className='row'>
+                <div className='row w-100'>
                     <span className='col fw-bold'>Name: </span>
                     <span className='col text-break'>{membership.team.name}</span>
                     <span className='col fw-bold'>Role: </span>
                     <span className='col text-break'>{(membership.team.leader._id === clientID)?'Leader':'Member'}</span>
                 </div>
-                <div className='row'>
+                <div className='row w-100'>
                     <span className='col fw-bold'>Leader: </span>
                     <span className='col text-break'>{membership.team.leader.username}</span>
                     <span className='col'></span>
@@ -63,7 +63,7 @@ const ShowTeams = () => {
         }));
         teamNotFound = <div>You're not a member of a team yet.</div>;
         content = <div className='page-min-height d-flex justify-content-center align-items-center'>
-            <div>
+            <div className='width-when-600-screen'>
                 <h1 className='text-center text-primary mb-4 fw-bold'>Show Teams</h1>
                 <div className='my-list-width'>
                     {(data.memberships.length > 0)?

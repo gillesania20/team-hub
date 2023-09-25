@@ -27,13 +27,13 @@ const DisplayTeamInfo = () => {
             role = 'member'
         }
         content = <div className='mb-3 shadow py-3 px-1 rounded'>
-            <div className='row'>
+            <div className='row w-100'>
                 <span className='col text-primary fw-bold'>team name:</span>
                 <span className='col text-break'>{data.name}</span>
                 <span className='col text-primary fw-bold'>role:</span>
                 <span className='col text-break'>{role}</span>
             </div>
-            <div className='row'>
+            <div className='row w-100'>
                 <span className='col text-primary fw-bold'>leader:</span>
                 <span className='col text-break'>{data?.leader?.username}</span>
                 <span className='col'></span>
