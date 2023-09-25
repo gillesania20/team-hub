@@ -50,13 +50,13 @@ resize: none;
 }
 
 @media only screen and (max-width: 600px) {
-.my-list-width {
-    width: 100vw;
-}
+    .my-list-width {
+        width: 100vw;
+    }
 }
 
 @media only screen and (max-width: 400px) {
-.form-min-width {
-    min-width: 100vw;
-}
+    .form-min-width {
+        min-width: 100%;
+    }
 }
