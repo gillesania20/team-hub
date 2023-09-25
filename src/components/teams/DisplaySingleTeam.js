@@ -97,7 +97,7 @@ const DisplaySingleTeam = () => {
             <div className='width-when-400-screen'>
                 <h1 className='text-center text-primary fw-bold mb-3'>Team Info</h1>
                 <div className='form-min-width'>
-                    <div className='text-center'>
+                    <div>
                         <div className='row mb-2 w-100'>
                             <span className='col text-primary fw-bold'>Name: </span>
                             <span className='col text-break'>{data.name}</span>

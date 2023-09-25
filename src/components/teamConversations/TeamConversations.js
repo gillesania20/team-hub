@@ -18,7 +18,7 @@ const TeamConversations = () => {
         content = <Loader />;
     }else if(typeof data?.message === 'string' && data.message === 'membership found'){
         content = <div className='page-min-height d-flex justify-content-center align-items-center'>
-            <div>
+            <div className='width-when-600-screen'>
                 <h1 className='text-center text-primary fw-bold mt-5 mb-3'>Team Conversations</h1>
                 <div className='my-list-width'>
                     <DisplayTeamInfo />

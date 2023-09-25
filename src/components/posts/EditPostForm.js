@@ -38,11 +38,11 @@ const EditPostForm = ({postData, messageFunc, messageColorFunc}) => {
         return null;
     }
     return (
-        <form onSubmit={handleOnSubmit} className=''>
+        <form onSubmit={handleOnSubmit} className='my-list-width'>
             <div className='mb-3'>
                 <label htmlFor='body' className='form-label text-secondary cursor-pointer'>Body: </label>
                 <textarea name='body' value={body} onChange={handleOnChange} rows='5' id='body' className='resize-none form-control
-                border border-primary my-list-width'></textarea>
+                border border-primary'></textarea>
             </div>
             <div className='text-center'>
                 <div className='btn-group'>
