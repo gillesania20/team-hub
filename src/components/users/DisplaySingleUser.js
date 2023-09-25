@@ -44,7 +44,7 @@ const DisplaySingleUser = () => {
                         <span className='col fw-bold text-primary'>Birthday: </span>
                         <span className='col text-break'>{birthday}</span>
                     </div>
-                    <div hidden={(clientID !== userID)} className='row'>
+                    <div hidden={(clientID !== userID)} className='text-center'>
                         <Link to={`/dash/users/edit-user/${userID}`} className='btn btn-outline-primary'>Edit User</Link>
                     </div>
                 </div>
