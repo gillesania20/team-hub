@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3500/api';
+const BASE_URL = 'https://team-hub-api.onrender.com/api';
 const MEMBER = 'member';
 const NOT_MEMBER = 'not member';
 const MAIN_TITLE = 'TeamHub';
