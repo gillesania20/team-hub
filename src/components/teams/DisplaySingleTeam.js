@@ -97,15 +97,15 @@ const DisplaySingleTeam = () => {
             <div className='width-when-400-screen'>
                 <h1 className='text-center text-primary fw-bold mb-3'>Team Info</h1>
                 <div className='form-min-width'>
-                    <div className='row mb-2'>
+                    <div className='row mb-2 w-100'>
                         <span className='col text-primary fw-bold'>Name: </span>
                         <span className='col text-break'>{data.name}</span>
                     </div>
-                    <div className='row mb-2'>
+                    <div className='row mb-2 w-100'>
                         <span className='col text-primary fw-bold'>Leader: </span>
                         <span className='col text-break'>{data.leader.username}</span>
                     </div>
-                    <div className='row mb-3'>
+                    <div className='row mb-3 w-100'>
                         <span className='col text-primary fw-bold'>Date created: </span>
                         <span className='col text-break'>{dateCreated}</span>
                     </div>

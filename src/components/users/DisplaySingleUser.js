@@ -32,16 +32,16 @@ const DisplaySingleUser = () => {
             <div className='width-when-400-screen'>
                 <h1 className='text-center text-primary fw-bold mb-3'>User Info</h1>
                 <div className='form-min-width'>
-                    <div className='w-100'>
-                        <div className='row mb-2'>
+                    <div>
+                        <div className='row mb-2 w-100'>
                             <span className='col fw-bold text-primary'>Username: </span>
                             <span className='col text-break'>{data.username}</span>
                         </div>
-                        <div className='row mb-2'>
+                        <div className='row mb-2 w-100'>
                             <span className='col fw-bold text-primary'>Status: </span>
                             <span className='col text-break'>{(data.active === true)?'Active':'Not Active'}</span>
                         </div>
-                        <div className='row mb-3'>
+                        <div className='row mb-3 w-100'>
                             <span className='col fw-bold text-primary'>Birthday: </span>
                             <span className='col text-break'>{birthday}</span>
                         </div>
