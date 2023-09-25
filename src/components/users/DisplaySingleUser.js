@@ -32,17 +32,19 @@ const DisplaySingleUser = () => {
             <div className='width-when-400-screen'>
                 <h1 className='text-center text-primary fw-bold mb-3'>User Info</h1>
                 <div className='form-min-width'>
-                    <div className='row mb-2'>
-                        <span className='col fw-bold text-primary'>Username: </span>
-                        <span className='col text-break'>{data.username}</span>
-                    </div>
-                    <div className='row mb-2'>
-                        <span className='col fw-bold text-primary'>Status: </span>
-                        <span className='col text-break'>{(data.active === true)?'Active':'Not Active'}</span>
-                    </div>
-                    <div className='row mb-3'>
-                        <span className='col fw-bold text-primary'>Birthday: </span>
-                        <span className='col text-break'>{birthday}</span>
+                    <div>
+                        <div className='row mb-2'>
+                            <span className='col fw-bold text-primary'>Username: </span>
+                            <span className='col text-break'>{data.username}</span>
+                        </div>
+                        <div className='row mb-2'>
+                            <span className='col fw-bold text-primary'>Status: </span>
+                            <span className='col text-break'>{(data.active === true)?'Active':'Not Active'}</span>
+                        </div>
+                        <div className='row mb-3'>
+                            <span className='col fw-bold text-primary'>Birthday: </span>
+                            <span className='col text-break'>{birthday}</span>
+                        </div>
                     </div>
                     <div hidden={(clientID !== userID)} className='text-center'>
                         <Link to={`/dash/users/edit-user/${userID}`} className='btn btn-outline-primary'>Edit User</Link>

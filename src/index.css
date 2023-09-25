@@ -11868,7 +11868,7 @@ form label {
 }
 
 .form-min-width {
-  width: 300px;
+  min-width: 300px;
 }
 
 .my-list-width {
@@ -11906,7 +11906,7 @@ form label {
 }
 @media only screen and (max-width: 400px) {
   .form-min-width {
-    width: 100%;
+    min-width: 100%;
   }
   .width-when-400-screen {
     width: 100%;
