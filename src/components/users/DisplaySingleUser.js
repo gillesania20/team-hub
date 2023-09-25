@@ -33,15 +33,15 @@ const DisplaySingleUser = () => {
                 <h1 className='text-center text-primary fw-bold mb-3'>User Info</h1>
                 <div className='form-min-width'>
                     <div>
-                        <div className='mb-2'>
+                        <div className='mb-2 d-flex justify-content-center'>
                             <span className='fw-bold text-primary'>Username: </span>
                             <span className='text-break'>{data.username}</span>
                         </div>
-                        <div className='mb-2'>
-                            <span className='col fw-bold text-primary'>Status: </span>
-                            <span className='col text-break'>{(data.active === true)?'Active':'Not Active'}</span>
+                        <div className='mb-2 d-flex justify-content-center'>
+                            <span className='fw-bold text-primary'>Status: </span>
+                            <span className='text-break'>{(data.active === true)?'Active':'Not Active'}</span>
                         </div>
-                        <div className='mb-3'>
+                        <div className='mb-3 d-flex justify-content-center'>
                             <span className='fw-bold text-primary'>Birthday: </span>
                             <span className='text-break'>{birthday}</span>
                         </div>
